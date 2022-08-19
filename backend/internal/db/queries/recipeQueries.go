@@ -43,19 +43,19 @@ func GetNonDeletedRecipes() ([]*tables.Recipe, error) {
 	return recipes, err
 }
 
-var getRecipesForRecipeBookQuery = `
+var getRecipesForSongBookQuery = `
 SELECT recipe.id, name, unique_name, description, oven_temp, estimated_time, deleted, owned_by, portions
-FROM recipe_book_recipe 
-	JOIN recipe ON recipe_book_recipe.recipe_id = recipe.id
-WHERE recipe_book_recipe.recipe_book_id = $1
+FROM song_book_recipe 
+	JOIN recipe ON song_book_recipe.recipe_id = recipe.id
+WHERE song_book_recipe.song_book_id = $1
 AND recipe.deleted = false;
 `
 
-func GetRecipesForRecipeBook(recipeBookId uuid.UUID) ([]*tables.Recipe, error) {
+func GetRecipesForSongBook(songBookId uuid.UUID) ([]*tables.Recipe, error) {
 	db := getDb()
 
 	var recipes []*tables.Recipe
-	err := pgxscan.Select(ctx, db, &recipes, getRecipesForRecipeBookQuery, recipeBookId)
+	err := pgxscan.Select(ctx, db, &recipes, getRecipesForSongBookQuery, songBookId)
 
 	return recipes, err
 }

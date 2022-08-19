@@ -8,11 +8,11 @@ import (
 	"github.com/google/uuid"
 )
 
-type RecipeBooksJson struct {
-	RecipeBooks []ShortRecipeBookJson `json:"recipeBooks"`
+type SongBooksJson struct {
+	SongBooks []ShortSongBookJson `json:"songBooks"`
 }
 
-type ShortRecipeBookJson struct {
+type ShortSongBookJson struct {
 	ID         uuid.UUID    `json:"id"`
 	Name       string       `json:"name"`
 	UniqueName string       `json:"uniqueName"`
@@ -21,12 +21,12 @@ type ShortRecipeBookJson struct {
 	UploadedBy models.Owner `json:"uploadedBy"`
 }
 
-func toShortRecipeBookJson(recipeBook *tables.RecipeBook, owner *tables.Owner, imageUrl string) ShortRecipeBookJson {
-	return ShortRecipeBookJson{
-		ID:         recipeBook.ID,
-		Name:       recipeBook.Name,
-		UniqueName: recipeBook.UniqueName,
-		Author:     recipeBook.Author,
+func toShortSongBookJson(songBook *tables.SongBook, owner *tables.Owner, imageUrl string) ShortSongBookJson {
+	return ShortSongBookJson{
+		ID:         songBook.ID,
+		Name:       songBook.Name,
+		UniqueName: songBook.UniqueName,
+		Author:     songBook.Author,
 		ImageLink:  imageUrl,
 		UploadedBy: models.Owner{
 			Id:     owner.ID,
@@ -36,19 +36,19 @@ func toShortRecipeBookJson(recipeBook *tables.RecipeBook, owner *tables.Owner, i
 	}
 }
 
-func GetRecipeBooks() (*RecipeBooksJson, error) {
-	recipeBooks, err := queries.GetNonDeletedRecipeBooks()
+func GetSongBooks() (*SongBooksJson, error) {
+	songBooks, err := queries.GetNonDeletedSongBooks()
 	if err != nil {
 		return nil, err
 	}
 
-	if recipeBooks == nil {
-		recipeBooks = make([]*tables.RecipeBook, 0)
+	if songBooks == nil {
+		songBooks = make([]*tables.SongBook, 0)
 	}
 
-	shortRecipeBooks := make([]ShortRecipeBookJson, 0)
-	for _, book := range recipeBooks {
-		image, err := queries.GetImageForRecipeBook(book.ID)
+	shortSongBooks := make([]ShortSongBookJson, 0)
+	for _, book := range songBooks {
+		image, err := queries.GetImageForSongBook(book.ID)
 
 		imageUrl := ""
 		if err != nil {
@@ -64,10 +64,10 @@ func GetRecipeBooks() (*RecipeBooksJson, error) {
 			return nil, err
 		}
 
-		shortRecipeBooks = append(shortRecipeBooks, toShortRecipeBookJson(book, owner, imageUrl))
+		shortSongBooks = append(shortSongBooks, toShortSongBookJson(book, owner, imageUrl))
 	}
 
-	return &RecipeBooksJson{
-		RecipeBooks: shortRecipeBooks,
+	return &SongBooksJson{
+		SongBooks: shortSongBooks,
 	}, nil
 }

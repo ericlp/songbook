@@ -14,85 +14,85 @@ import (
 	"net/http"
 )
 
-type EditRecipeBookResponseJson struct {
+type EditSongBookResponseJson struct {
 	UniqueName string `json:"uniqueName"`
 }
 
-func EditRecipeBook(c *gin.Context) {
-	recipeBook, err := validateEditRecipeBook(c)
+func EditSongBook(c *gin.Context) {
+	songBook, err := validateEditSongBook(c)
 	if err != nil {
 		log.Printf("Failed to validate edit recipe book json %v\n", err)
 		c.JSON(http.StatusBadRequest, common.Error(common.ResponseInvalidJson))
 		return
 	}
 
-	oldRecipeBook, err := validateRecipeBookId(c)
+	oldSongBook, err := validateSongBookId(c)
 	if err != nil {
 		log.Printf("Failed to validate recipe id: %v\n", err)
 		return
 	}
 
-	err = validateOwnerAuthorized(c, oldRecipeBook.OwnedBy)
+	err = validateOwnerAuthorized(c, oldSongBook.OwnedBy)
 	if err != nil {
-		log.Printf("User not authorized to edit recipebook: %v\n", err)
+		log.Printf("User not authorized to edit songbook: %v\n", err)
 		c.JSON(http.StatusForbidden, common.Error(common.ResponseIncorrectUser))
 		return
 	}
 
-	uniqueName, err := process.EditRecipeBook(oldRecipeBook, recipeBook)
+	uniqueName, err := process.EditSongBook(oldSongBook, songBook)
 	if err != nil {
-		log.Printf("Failed to edit recipebook: %v\n", err)
+		log.Printf("Failed to edit songbook: %v\n", err)
 		if errors.Is(err, common.ErrNameTaken) {
 			c.JSON(
 				http.StatusUnprocessableEntity,
-				common.Error(common.ResponseRecipeBookNameExists),
+				common.Error(common.ResponseSongBookNameExists),
 			)
 			return
 		}
 
 		c.JSON(
 			http.StatusInternalServerError,
-			common.Error(common.ResponseFailedToEditRecipeBook),
+			common.Error(common.ResponseFailedToEditSongBook),
 		)
 		return
 	}
 
-	c.JSON(http.StatusOK, common.Success(EditRecipeBookResponseJson{uniqueName}))
+	c.JSON(http.StatusOK, common.Success(EditSongBookResponseJson{uniqueName}))
 }
 
-func validateRecipeBookId(c *gin.Context) (*tables.RecipeBook, error) {
+func validateSongBookId(c *gin.Context) (*tables.SongBook, error) {
 	idStr := c.Param("id")
 	id, err := uuid.Parse(idStr)
 	if err != nil {
 		c.JSON(
 			http.StatusBadRequest,
-			common.Error(common.ResponseMalformedRecipeBookId),
+			common.Error(common.ResponseMalformedSongBookId),
 		)
 		return nil, err
 	}
 
-	recipeBook, err := queries.GetRecipeBookById(id)
+	songBook, err := queries.GetSongBookById(id)
 	if err != nil {
 		c.JSON(
 			http.StatusNotFound,
-			common.Error(common.ResponseRecipeBookNotFound),
+			common.Error(common.ResponseSongBookNotFound),
 		)
 		return nil, err
 	}
 
-	return recipeBook, nil
+	return songBook, nil
 }
 
-func validateEditRecipeBook(c *gin.Context) (
-	*models.EditRecipeBookJson,
+func validateEditSongBook(c *gin.Context) (
+	*models.EditSongBookJson,
 	error,
 ) {
-	var recipeBook models.EditRecipeBookJson
-	err := c.BindJSON(&recipeBook)
+	var songBook models.EditSongBookJson
+	err := c.BindJSON(&songBook)
 	if err != nil {
 		return nil, err
 	}
 
-	err = validation.ValidateRecipeBook(&recipeBook)
-	return &recipeBook, err
+	err = validation.ValidateSongBook(&songBook)
+	return &songBook, err
 }

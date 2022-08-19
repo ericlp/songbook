@@ -9,27 +9,27 @@ import (
 	"net/http"
 )
 
-func RecipeBook(c *gin.Context) {
+func SongBook(c *gin.Context) {
 	uniqueName := c.Param("uniqueName")
-	detailedRecipeBook, err := process.GetRecipeBook(uniqueName)
+	detailedSongBook, err := process.GetSongBook(uniqueName)
 	if err != nil {
-		if errors.Is(err, common.ErrNoSuchRecipeBook) {
+		if errors.Is(err, common.ErrNoSuchSongBook) {
 			c.JSON(
 				http.StatusNotFound,
-				common.Error(common.ResponseRecipeBookNotFound),
+				common.Error(common.ResponseSongBookNotFound),
 			)
 		}
 		log.Printf(
-			"Error: Failed to retrieve recipebook %s, due to error: %v\n",
+			"Error: Failed to retrieve songbook %s, due to error: %v\n",
 			uniqueName,
 			err,
 		)
 		c.JSON(
 			http.StatusInternalServerError,
-			common.Error(common.ResponseFailedToRetrieveRecipeBook),
+			common.Error(common.ResponseFailedToRetrieveSongBook),
 		)
 		return
 	}
 
-	c.JSON(http.StatusOK, common.Success(detailedRecipeBook))
+	c.JSON(http.StatusOK, common.Success(detailedSongBook))
 }

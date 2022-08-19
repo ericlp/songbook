@@ -6,28 +6,28 @@ import (
 	"github.com/google/uuid"
 )
 
-var createRecipeBookRecipeCommand = `
-INSERT INTO recipe_book_recipe(recipe_book_id, recipe_id)
+var createSongBookRecipeCommand = `
+INSERT INTO song_book_recipe(song_book_id, recipe_id)
 					   VALUES ($1, 			   $2)
-RETURNING recipe_book_id, recipe_id
+RETURNING song_book_id, recipe_id
 `
 
-func CreateRecipeBookRecipe(recipeBookId, recipeId uuid.UUID) (*tables.RecipeBookRecipe, error) {
+func CreateSongBookRecipe(songBookId, recipeId uuid.UUID) (*tables.SongBookRecipe, error) {
 	db := getDb()
 
-	var recipeBookRecipe tables.RecipeBookRecipe
-	err := pgxscan.Get(ctx, db, &recipeBookRecipe, createRecipeBookRecipeCommand, recipeBookId, recipeId)
-	return &recipeBookRecipe, err
+	var songBookRecipe tables.SongBookRecipe
+	err := pgxscan.Get(ctx, db, &songBookRecipe, createSongBookRecipeCommand, songBookId, recipeId)
+	return &songBookRecipe, err
 }
 
-var deleteRecipeBookRecipeCommand = `
-DELETE FROM recipe_book_recipe
-WHERE recipe_book_id=$1 AND recipe_id=$2
+var deleteSongBookRecipeCommand = `
+DELETE FROM song_book_recipe
+WHERE song_book_id=$1 AND recipe_id=$2
 `
 
-func DeleteRecipeBookRecipe(recipeBookId, recipeId uuid.UUID) error {
+func DeleteSongBookRecipe(songBookId, recipeId uuid.UUID) error {
 	db := getDb()
 
-	_, err := db.Exec(ctx, deleteRecipeBookRecipeCommand, recipeBookId, recipeId)
+	_, err := db.Exec(ctx, deleteSongBookRecipeCommand, songBookId, recipeId)
 	return err
 }

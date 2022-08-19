@@ -6,28 +6,28 @@ import (
 	"github.com/google/uuid"
 )
 
-var createRecipeBookImageCommand = `
-INSERT INTO recipe_book_image(recipe_book_id, image_id)
+var createSongBookImageCommand = `
+INSERT INTO song_book_image(song_book_id, image_id)
 					  VALUES ($1, 			  $2)
-RETURNING recipe_book_id, image_id
+RETURNING song_book_id, image_id
 `
 
-func CreateRecipeBookImage(recipeBookId, imageId uuid.UUID) (*tables.RecipeBookImage, error) {
+func CreateSongBookImage(songBookId, imageId uuid.UUID) (*tables.SongBookImage, error) {
 	db := getDb()
 
-	var recipeBookImage tables.RecipeBookImage
-	err := pgxscan.Get(ctx, db, &recipeBookImage, createRecipeBookImageCommand, recipeBookId, imageId)
-	return &recipeBookImage, err
+	var songBookImage tables.SongBookImage
+	err := pgxscan.Get(ctx, db, &songBookImage, createSongBookImageCommand, songBookId, imageId)
+	return &songBookImage, err
 }
 
-var deleteRecipeBookImageCommand = `
-DELETE FROM recipe_book_image
-WHERE recipe_book_id=$1 AND image_id=$2
+var deleteSongBookImageCommand = `
+DELETE FROM song_book_image
+WHERE song_book_id=$1 AND image_id=$2
 `
 
-func DeleteRecipeBookImage(bookId, imageId uuid.UUID) error {
+func DeleteSongBookImage(bookId, imageId uuid.UUID) error {
 	db := getDb()
 
-	_, err := db.Exec(ctx, deleteRecipeBookImageCommand, bookId, imageId)
+	_, err := db.Exec(ctx, deleteSongBookImageCommand, bookId, imageId)
 	return err
 }

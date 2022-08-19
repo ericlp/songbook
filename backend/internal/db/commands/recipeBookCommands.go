@@ -6,45 +6,45 @@ import (
 	"github.com/google/uuid"
 )
 
-var createRecipeBookCommand = `
-INSERT INTO recipe_book(name, unique_name, author, deleted, owned_by)
+var createSongBookCommand = `
+INSERT INTO song_book(name, unique_name, author, deleted, owned_by)
 				VALUES ($1,   $2, 	       '',     false,   $3)
 RETURNING id, name, unique_name, author
 `
 
-func CreateRecipeBook(name, uniqueName string, OwnedBy uuid.UUID) (
-	*tables.RecipeBook,
+func CreateSongBook(name, uniqueName string, OwnedBy uuid.UUID) (
+	*tables.SongBook,
 	error,
 ) {
 	db := getDb()
 
-	var recipeBook tables.RecipeBook
+	var songBook tables.SongBook
 	err := pgxscan.Get(
 		ctx,
 		db,
-		&recipeBook,
-		createRecipeBookCommand,
+		&songBook,
+		createSongBookCommand,
 		name,
 		uniqueName,
 		OwnedBy,
 	)
-	return &recipeBook, err
+	return &songBook, err
 }
 
-var updateRecipeBookCommand = `
-UPDATE recipe_book
+var updateSongBookCommand = `
+UPDATE song_book
 SET name=$1,
 	unique_name=$2,
 	author=$3
 WHERE id=$4
 `
 
-func UpdateRecipeBook(name, uniqueName, author string, bookId uuid.UUID) error {
+func UpdateSongBook(name, uniqueName, author string, bookId uuid.UUID) error {
 	db := getDb()
 
 	_, err := db.Exec(
 		ctx,
-		updateRecipeBookCommand,
+		updateSongBookCommand,
 		name,
 		uniqueName,
 		author,
@@ -53,17 +53,17 @@ func UpdateRecipeBook(name, uniqueName, author string, bookId uuid.UUID) error {
 	return err
 }
 
-var recipeBookSetDeletedCommand = `
-UPDATE recipe_book
+var songBookSetDeletedCommand = `
+UPDATE song_book
 SET deleted=true,
 	name=$1,
 	unique_name=$2
 WHERE id=$3
 `
 
-func RecipeBookSetDeleted(name, uniqueName string, id uuid.UUID) error {
+func SongBookSetDeleted(name, uniqueName string, id uuid.UUID) error {
 	db := getDb()
 
-	_, err := db.Exec(ctx, recipeBookSetDeletedCommand, name, uniqueName, id)
+	_, err := db.Exec(ctx, songBookSetDeletedCommand, name, uniqueName, id)
 	return err
 }

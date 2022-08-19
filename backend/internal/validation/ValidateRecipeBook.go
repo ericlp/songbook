@@ -13,13 +13,13 @@ var (
 	ErrFailedToRetrieveRecipe = errors.New("failed to retrieve the provided recipe id from the database")
 )
 
-func ValidateRecipeBook(recipeBook *models.EditRecipeBookJson) error {
-	err := validateRecipeBookImages(recipeBook.Images)
+func ValidateSongBook(songBook *models.EditSongBookJson) error {
+	err := validateSongBookImages(songBook.Images)
 	if err != nil {
 		return err
 	}
 
-	err = validateRecipeBookRecipes(recipeBook.Recipes)
+	err = validateSongBookRecipes(songBook.Recipes)
 	if err != nil {
 		return err
 	}
@@ -27,7 +27,7 @@ func ValidateRecipeBook(recipeBook *models.EditRecipeBookJson) error {
 	return nil
 }
 
-func validateRecipeBookImages(images []uuid.UUID) error {
+func validateSongBookImages(images []uuid.UUID) error {
 	for _, imageId := range images {
 		_, err := queries.GetImageById(imageId)
 		if err != nil {
@@ -38,7 +38,7 @@ func validateRecipeBookImages(images []uuid.UUID) error {
 	return nil
 }
 
-func validateRecipeBookRecipes(recipes []uuid.UUID) error {
+func validateSongBookRecipes(recipes []uuid.UUID) error {
 	for _, recipeId := range recipes {
 		_, err := queries.GetRecipeById(recipeId)
 		if err != nil {

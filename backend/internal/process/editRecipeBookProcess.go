@@ -8,34 +8,34 @@ import (
 	"github.com/google/uuid"
 )
 
-func EditRecipeBook(
-	oldRecipeBook *tables.RecipeBook,
-	updatedRecipeBook *models.EditRecipeBookJson,
+func EditSongBook(
+	oldSongBook *tables.SongBook,
+	updatedSongBook *models.EditSongBookJson,
 ) (string, error) {
-	uniqueName, err := updateRecipeBookGeneral(oldRecipeBook, updatedRecipeBook)
+	uniqueName, err := updateSongBookGeneral(oldSongBook, updatedSongBook)
 	if err != nil {
 		return "", err
 	}
 
-	err = updateRecipeBookRecipes(oldRecipeBook.ID, updatedRecipeBook.Recipes)
+	err = updateSongBookRecipes(oldSongBook.ID, updatedSongBook.Recipes)
 	if err != nil {
 		return "", err
 	}
 
-	err = updateRecipeBookImages(oldRecipeBook.ID, updatedRecipeBook.Images)
+	err = updateSongBookImages(oldSongBook.ID, updatedSongBook.Images)
 
 	return uniqueName, err
 }
 
-func updateRecipeBookGeneral(
-	oldRecipeBook *tables.RecipeBook,
-	newRecipeBook *models.EditRecipeBookJson,
+func updateSongBookGeneral(
+	oldSongBook *tables.SongBook,
+	newSongBook *models.EditSongBookJson,
 ) (string, error) {
-	uniqueName := oldRecipeBook.UniqueName
+	uniqueName := oldSongBook.UniqueName
 	changed := false
-	if oldRecipeBook.Name != newRecipeBook.Name {
+	if oldSongBook.Name != newSongBook.Name {
 		// Need to generate a new uniqueName
-		newUniqueName, err := generateUniqueBookName(newRecipeBook.Name)
+		newUniqueName, err := generateUniqueBookName(newSongBook.Name)
 		if err != nil {
 			return "", err
 		}
@@ -43,16 +43,16 @@ func updateRecipeBookGeneral(
 		changed = true
 	}
 
-	if oldRecipeBook.Author != newRecipeBook.Author {
+	if oldSongBook.Author != newSongBook.Author {
 		changed = true
 	}
 
 	if changed {
-		err := commands.UpdateRecipeBook(
-			newRecipeBook.Name,
+		err := commands.UpdateSongBook(
+			newSongBook.Name,
 			uniqueName,
-			newRecipeBook.Author,
-			oldRecipeBook.ID,
+			newSongBook.Author,
+			oldSongBook.ID,
 		)
 		if err != nil {
 			return "", err
@@ -62,16 +62,16 @@ func updateRecipeBookGeneral(
 	return uniqueName, nil
 }
 
-func updateRecipeBookRecipes(bookId uuid.UUID, recipes []uuid.UUID) error {
-	oldRecipes, err := queries.GetRecipesForRecipeBook(bookId)
+func updateSongBookRecipes(bookId uuid.UUID, recipes []uuid.UUID) error {
+	oldRecipes, err := queries.GetRecipesForSongBook(bookId)
 	if err != nil {
 		return err
 	}
 
 	for _, recipeId := range recipes {
 		if recipeWithIdIsInList(recipeId, oldRecipes) == false {
-			// Create the recipeBookRecipe
-			_, err := commands.CreateRecipeBookRecipe(bookId, recipeId)
+			// Create the songBookRecipe
+			_, err := commands.CreateSongBookRecipe(bookId, recipeId)
 			if err != nil {
 				return err
 			}
@@ -88,7 +88,7 @@ func updateRecipeBookRecipes(bookId uuid.UUID, recipes []uuid.UUID) error {
 		}
 
 		if removed {
-			err := commands.DeleteRecipeBookRecipe(bookId, oldRecipe.ID)
+			err := commands.DeleteSongBookRecipe(bookId, oldRecipe.ID)
 			if err != nil {
 				return err
 			}
@@ -108,8 +108,8 @@ func recipeWithIdIsInList(id uuid.UUID, oldRecipes []*tables.Recipe) bool {
 	return false
 }
 
-func updateRecipeBookImages(bookId uuid.UUID, images []uuid.UUID) error {
-	oldImages, err := queries.GetImagesForRecipeBook(bookId)
+func updateSongBookImages(bookId uuid.UUID, images []uuid.UUID) error {
+	oldImages, err := queries.GetImagesForSongBook(bookId)
 	if err != nil {
 		return err
 	}
@@ -126,7 +126,7 @@ func updateRecipeBookImages(bookId uuid.UUID, images []uuid.UUID) error {
 		}
 	}
 
-	err = connectImagesToRecipeBook(bookId, newImages)
+	err = connectImagesToSongBook(bookId, newImages)
 	if err != nil {
 		return err
 	}
@@ -140,7 +140,7 @@ func updateRecipeBookImages(bookId uuid.UUID, images []uuid.UUID) error {
 		}
 
 		if found == false {
-			err = commands.DeleteRecipeBookImage(bookId, oldImage.ID)
+			err = commands.DeleteSongBookImage(bookId, oldImage.ID)
 			if err != nil {
 				return err
 			}

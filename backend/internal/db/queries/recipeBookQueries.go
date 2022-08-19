@@ -6,45 +6,45 @@ import (
 	"github.com/google/uuid"
 )
 
-var getRecipeBookByNameQuery = `
+var getSongBookByNameQuery = `
 SELECT id, name, unique_name, author, owned_by, deleted
-FROM recipe_book
+FROM song_book
 WHERE unique_name=$1
 `
 
-func GetRecipeBookByName(uniqueName string) (*tables.RecipeBook, error) {
+func GetSongBookByName(uniqueName string) (*tables.SongBook, error) {
 	db := getDb()
 
-	var recipeBook tables.RecipeBook
-	err := pgxscan.Get(ctx, db, &recipeBook, getRecipeBookByNameQuery, uniqueName)
-	return &recipeBook, err
+	var songBook tables.SongBook
+	err := pgxscan.Get(ctx, db, &songBook, getSongBookByNameQuery, uniqueName)
+	return &songBook, err
 }
 
 var getNonDeletedBooksQuery = `
 SELECT id, name, unique_name, author, owned_by, deleted
-FROM recipe_book
+FROM song_book
 WHERE deleted=false
 `
 
-func GetNonDeletedRecipeBooks() ([]*tables.RecipeBook, error) {
+func GetNonDeletedSongBooks() ([]*tables.SongBook, error) {
 	db := getDb()
 
-	var recipeBooks []*tables.RecipeBook
-	err := pgxscan.Select(ctx, db, &recipeBooks, getNonDeletedBooksQuery)
+	var songBooks []*tables.SongBook
+	err := pgxscan.Select(ctx, db, &songBooks, getNonDeletedBooksQuery)
 
-	return recipeBooks, err
+	return songBooks, err
 }
 
-var getRecipeBookByIdQuery = `
+var getSongBookByIdQuery = `
 SELECT id, name, unique_name, author, owned_by, deleted
-FROM recipe_book
+FROM song_book
 WHERE id=$1
 `
 
-func GetRecipeBookById(id uuid.UUID) (*tables.RecipeBook, error) {
+func GetSongBookById(id uuid.UUID) (*tables.SongBook, error) {
 	db := getDb()
 
-	var recipeBook tables.RecipeBook
-	err := pgxscan.Get(ctx, db, &recipeBook, getRecipeBookByIdQuery, id)
-	return &recipeBook, err
+	var songBook tables.SongBook
+	err := pgxscan.Get(ctx, db, &songBook, getSongBookByIdQuery, id)
+	return &songBook, err
 }

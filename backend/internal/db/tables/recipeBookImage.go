@@ -2,7 +2,7 @@ package tables
 
 import "github.com/google/uuid"
 
-type RecipeBookImage struct {
-	RecipeBookId uuid.UUID
-	ImageId      uuid.UUID
+type SongBookImage struct {
+	SongBookId uuid.UUID
+	ImageId    uuid.UUID
 }

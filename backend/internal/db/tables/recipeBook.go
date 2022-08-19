@@ -2,7 +2,7 @@ package tables
 
 import "github.com/google/uuid"
 
-type RecipeBook struct {
+type SongBook struct {
 	ID         uuid.UUID
 	Name       string
 	UniqueName string

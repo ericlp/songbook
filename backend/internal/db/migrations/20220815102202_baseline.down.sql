@@ -1,9 +1,9 @@
 DROP TABLE IF EXISTS "recipe_tag";
 DROP TABLE IF EXISTS "tag";
 
-DROP TABLE IF EXISTS "recipe_book_recipe";
-DROP TABLE IF EXISTS "recipe_book_image";
-DROP TABLE IF EXISTS "recipe_book";
+DROP TABLE IF EXISTS "song_book_recipe";
+DROP TABLE IF EXISTS "song_book_image";
+DROP TABLE IF EXISTS "song_book";
 
 DROP TABLE IF EXISTS "recipe_ingredient";
 DROP TABLE IF EXISTS "unit";

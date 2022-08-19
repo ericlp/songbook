@@ -10,48 +10,48 @@ import (
 	"net/http"
 )
 
-type NewRecipeBookResponse struct {
+type NewSongBookResponse struct {
 	UniqueName string `json:"uniqueName"`
 }
 
-func NewRecipeBook(c *gin.Context) {
-	recipeBook, err := validateNewRecipeBook(c)
+func NewSongBook(c *gin.Context) {
+	songBook, err := validateNewSongBook(c)
 	if err != nil {
 		log.Printf("Failed to validate new recipe book json: %v\n", err)
 		c.JSON(http.StatusBadRequest, common.Error(common.ResponseInvalidJson))
 		return
 	}
 
-	uniqueName, err := process.CreateNewRecipeBook(recipeBook)
+	uniqueName, err := process.CreateNewSongBook(songBook)
 	if err != nil {
 		if errors.Is(err, common.ErrNameTaken) {
-			log.Printf("Tried to create duplicate recipebook")
+			log.Printf("Tried to create duplicate songbook")
 			c.JSON(
 				http.StatusUnprocessableEntity,
-				common.Error(common.ResponseRecipeBookNameExists),
+				common.Error(common.ResponseSongBookNameExists),
 			)
 			return
 		}
 
-		log.Printf("Failed to create new recipebook: %v\n", err)
+		log.Printf("Failed to create new songbook: %v\n", err)
 		c.JSON(
 			http.StatusInternalServerError,
-			common.Error(common.ResponseFailedToCreateRecipeBook),
+			common.Error(common.ResponseFailedToCreateSongBook),
 		)
 		return
 	}
 
 	c.JSON(
 		http.StatusCreated, common.Success(
-			NewRecipeBookResponse{
+			NewSongBookResponse{
 				UniqueName: uniqueName,
 			},
 		),
 	)
 }
 
-func validateNewRecipeBook(c *gin.Context) (*models.NewRecipeBookJson, error) {
-	var recipeBook models.NewRecipeBookJson
-	err := c.ShouldBindJSON(&recipeBook)
-	return &recipeBook, err
+func validateNewSongBook(c *gin.Context) (*models.NewSongBookJson, error) {
+	var songBook models.NewSongBookJson
+	err := c.ShouldBindJSON(&songBook)
+	return &songBook, err
 }

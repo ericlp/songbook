@@ -10,31 +10,31 @@ import (
 	"strings"
 )
 
-func CreateNewRecipeBook(
-	recipeBookJson *models.NewRecipeBookJson,
+func CreateNewSongBook(
+	songBookJson *models.NewSongBookJson,
 ) (string, error) {
-	uniqueName, err := generateUniqueBookName(recipeBookJson.Name)
+	uniqueName, err := generateUniqueBookName(songBookJson.Name)
 	if err != nil {
 		return "", err
 	}
 
-	recipeBook, err := commands.CreateRecipeBook(
-		recipeBookJson.Name,
+	songBook, err := commands.CreateSongBook(
+		songBookJson.Name,
 		uniqueName,
-		recipeBookJson.OwnerId,
+		songBookJson.OwnerId,
 	)
 	if err != nil {
 		return "", err
 	}
 
-	return recipeBook.UniqueName, nil
+	return songBook.UniqueName, nil
 }
 
 func generateUniqueBookName(name string) (string, error) {
 	lowerCase := strings.ToLower(name)
 	uniqueName := strings.ReplaceAll(lowerCase, " ", "_")
 
-	_, err := queries.GetRecipeBookByName(uniqueName)
+	_, err := queries.GetSongBookByName(uniqueName)
 	if err != nil {
 		if pgxscan.NotFound(err) {
 			return uniqueName, nil
@@ -45,12 +45,12 @@ func generateUniqueBookName(name string) (string, error) {
 	return uniqueName, common.ErrNameTaken
 }
 
-func createRecipeBookRecipes(
-	recipeBookId uuid.UUID,
+func createSongBookRecipes(
+	songBookId uuid.UUID,
 	recipes []uuid.UUID,
 ) error {
 	for _, recipe := range recipes {
-		_, err := commands.CreateRecipeBookRecipe(recipeBookId, recipe)
+		_, err := commands.CreateSongBookRecipe(songBookId, recipe)
 		if err != nil {
 			return err
 		}
@@ -58,12 +58,12 @@ func createRecipeBookRecipes(
 	return nil
 }
 
-func connectImagesToRecipeBook(
-	recipeBookId uuid.UUID,
+func connectImagesToSongBook(
+	songBookId uuid.UUID,
 	imageIds []uuid.UUID,
 ) error {
 	for _, imageId := range imageIds {
-		_, err := commands.CreateRecipeBookImage(recipeBookId, imageId)
+		_, err := commands.CreateSongBookImage(songBookId, imageId)
 		if err != nil {
 			return err
 		}

@@ -6,44 +6,44 @@ import (
 	"github.com/google/uuid"
 )
 
-var getImageForRecipeBookQuery = `
-SELECT image_id, recipe_book_id 
-FROM recipe_book_image
-WHERE recipe_book_id=$1
+var getImageForSongBookQuery = `
+SELECT image_id, song_book_id 
+FROM song_book_image
+WHERE song_book_id=$1
 `
 
-func GetImageForRecipeBook(recipeBookId uuid.UUID) (*tables.Image, error) {
+func GetImageForSongBook(songBookId uuid.UUID) (*tables.Image, error) {
 	db := getDb()
 
-	var recipeBookImage tables.RecipeBookImage
-	err := pgxscan.Get(ctx, db, &recipeBookImage, getImageForRecipeBookQuery, recipeBookId)
+	var songBookImage tables.SongBookImage
+	err := pgxscan.Get(ctx, db, &songBookImage, getImageForSongBookQuery, songBookId)
 
 	if err != nil {
 		return nil, err
 	}
 
-	img, err := GetImageById(recipeBookImage.ImageId)
+	img, err := GetImageById(songBookImage.ImageId)
 	return img, err
 }
 
-var getImagesForRecipeBookQuery = `
-SELECT image_id, recipe_book_id
-FROM recipe_book_image
-WHERE recipe_book_id=$1
+var getImagesForSongBookQuery = `
+SELECT image_id, song_book_id
+FROM song_book_image
+WHERE song_book_id=$1
 `
 
-func GetImagesForRecipeBook(recipeBookId uuid.UUID) ([]tables.Image, error) {
+func GetImagesForSongBook(songBookId uuid.UUID) ([]tables.Image, error) {
 	db := getDb()
 
-	var recipeBookImages []*tables.RecipeBookImage
-	err := pgxscan.Select(ctx, db, &recipeBookImages, getImagesForRecipeBookQuery, recipeBookId)
+	var songBookImages []*tables.SongBookImage
+	err := pgxscan.Select(ctx, db, &songBookImages, getImagesForSongBookQuery, songBookId)
 	if err != nil {
 		return nil, err
 	}
 
 	var images []tables.Image
-	if recipeBookImages != nil {
-		for _, bookImage := range recipeBookImages {
+	if songBookImages != nil {
+		for _, bookImage := range songBookImages {
 			img, err := GetImageById(bookImage.ImageId)
 			if err != nil {
 				return nil, err
