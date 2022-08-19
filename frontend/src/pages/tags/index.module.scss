@@ -1,0 +1,103 @@
+@import "src/resources/styles/vars.scss";
+
+.NewTagButton {
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    width: 100px;
+  }
+}
+
+.TagsPageTable {
+  display: flex;
+  flex-direction: column;
+  gap: $space-small;
+
+  max-width: 1216px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 $space;
+}
+
+.TagsPageToolbar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: $space-small;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+  }
+}
+
+.TableHeader {
+  background-color: #e0e0e0;
+  text-align: left;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+  padding: $space-small;
+  border: 1px solid #707070;
+}
+
+.TableRow {
+  border: 1px solid #707070;
+  border-top: none;
+  padding: $space-small;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+  background-color: white;
+
+  &:last-child {
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  }
+
+  box-sizing: border-box;
+}
+
+.TagsActionButton {
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0;
+  margin-left: $space;
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+  -webkit-appearance: button;
+  text-transform: none;
+  box-sizing: border-box;
+  list-style-type: none;
+  background-color: inherit;
+
+  &:hover {
+    color: $primary-color;
+    text-decoration: underline;
+  }
+
+  &:disabled {
+    text-decoration: none;
+    color: gray;
+    cursor: default;
+  }
+}
+
+.TagTableElement {
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
+.TagsTableText {
+  vertical-align: top !important;
+  line-height: 1.5;
+}
+
+.RecipeCountLink {
+  color: $primary-color;
+  font-weight: normal;
+}

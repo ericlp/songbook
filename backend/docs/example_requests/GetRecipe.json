@@ -1,0 +1,5 @@
+{
+  "endpoint": "/api/recipes/{recipe_unique_name}",
+  "method": "GET",
+  "request": null
+}

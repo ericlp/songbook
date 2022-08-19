@@ -1,0 +1,29 @@
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "name": "Chokladkaka med chokladkräm och bär",
+    "description": "Chokladkaka med chokladkräm och bär är den perfekta efterrätten som passar alla åldrar och vid alla tillfällen. Denna delikata dessert med en härlig chokladbotten och en krämig chokladkräm ovanpå dekoreras med färska bär.",
+    "ovenTemperature": 175,
+    "estimatedTime": -1,
+    "steps": [
+      {
+        "number": 0,
+        "description": "Sätt ugnen på 175 °C."
+      }
+    ],
+    "ingredients": [
+      {
+        "name": "ägg",
+        "unit": "st",
+        "amount": 2
+      }
+    ],
+    "images": [
+      {
+        "url": "static/images/",
+        "id": 1
+      }
+    ]
+  }
+}

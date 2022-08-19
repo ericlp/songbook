@@ -1,0 +1,25 @@
+@import "../../resources/styles/vars";
+
+.createCardColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+}
+
+.createElement {
+  display: flex;
+  gap: $space-tiny;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.createTextField {
+  width: 100%;
+}
+
+.createRecipeBookButton {
+  width: 100%;
+}

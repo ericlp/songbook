@@ -1,0 +1,141 @@
+@import "../../../resources/styles/vars";
+
+.detailsBase {
+  border-radius: $border-radius;
+  border: 1px solid $border-color;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.summaryButton {
+  padding: $space-small;
+  border-radius: $border-radius;
+  justify-content: space-between;
+  transition: background-color 400ms, color 250ms;
+  cursor: pointer;
+  font-size: 0.833rem;
+  border: none;
+  box-shadow: none;
+  background-color: white;
+
+  &:hover {
+    background-color: white;
+    color: $primary-color;
+    border-color: $primary-color;
+    filter: none;
+  }
+}
+
+.filterDetails[open] {
+  &[open] {
+    > summary {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border: 1px solid grey;
+    }
+    margin: -1px;
+  }
+}
+
+.filterViewBase {
+  position: relative;
+}
+
+.filterViewMenu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 99;
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
+  border: 1px solid #707070;
+  border-top: none;
+  background-color: white;
+}
+
+.grayBorderBottom {
+  border-bottom: 1px solid $gray-color;
+}
+
+.filterItemList {
+  max-height: 435px;
+  overflow: auto;
+}
+
+.leftShiftItem {
+  margin-left: -$space-small;
+}
+
+.colorDot {
+  height: $space;
+  width: $space;
+  border-radius: $space;
+  margin: $space-tiny;
+}
+
+.filterItem {
+  padding: $space-small $space-tiny $space-small $space;
+  border: none;
+  border-bottom: 1px solid $gray-color;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  background-color: inherit;
+  outline: 0;
+
+
+  &:active {
+    background-color: $gray-color-active;
+  }
+
+
+  &:hover, &:focus, &:focus-within {
+    background-color: $gray-color-hover;
+  }
+
+  &:last-child {
+    border-bottom: none;
+    border-bottom-left-radius: calc(#{$border-radius} - 1px);
+    border-bottom-right-radius: calc(#{$border-radius} - 1px);
+  }
+}
+
+.filterItemSelected {
+  background-color: $primary-color-selected;
+
+
+  &:active {
+    background-color: $primary-color-selected-active;
+  }
+
+  &:hover, &:focus, &:focus-within {
+    background-color: $primary-color-selected-hover;
+  }
+}
+
+.defaultFilterItem {
+    color: black;
+
+}
+
+.chefIcon {
+  height: 1rem;
+  width: 1rem;
+  color: black;
+}
+
+.detail-size-fixed {
+  width: 300px;
+}
+
+.detail-size-full {
+  width: 100%;
+}
+
+.detail-size-responsive {
+  width: 100%;
+  max-width: none;
+  @media (min-width: 1024px) {
+    width: 300px;
+  }
+}

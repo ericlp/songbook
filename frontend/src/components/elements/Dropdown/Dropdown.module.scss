@@ -1,0 +1,35 @@
+@import "../../../resources/styles/vars";
+
+.dropdownBase {
+  height: 2.5rem;
+  cursor: pointer;
+  border: none;
+  color: inherit;
+  background-color: white;
+  transition: background-color 500ms, color 250ms, border 250ms;
+
+  &:hover {
+    filter: brightness(0.9);
+    border-color: $primary-color;
+  }
+}
+
+.dropdownOptionBase {
+}
+
+.dropdown-variant-opaque {
+  font-weight: normal;
+}
+
+.dropdown-variant-outlined {
+  border-radius: $border-radius;
+  border: 1px solid $border-color;
+}
+
+.dropdown-size-normal {
+  width: 180px;
+}
+
+.dropdown-size-auto {
+  width: auto;
+}
