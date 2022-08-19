@@ -1,0 +1,5 @@
+-- ALTER TABLE song_book
+--     DROP COLUMN private;
+--
+-- ALTER TABLE song
+--     DROP COLUMN private;

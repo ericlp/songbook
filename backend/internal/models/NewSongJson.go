@@ -2,7 +2,7 @@ package models
 
 import "github.com/google/uuid"
 
-type NewRecipeJson struct {
+type NewSongJson struct {
 	Name    string    `json:"name" binding:"required"`
 	OwnerId uuid.UUID `json:"ownerId" binding:"required"`
 }

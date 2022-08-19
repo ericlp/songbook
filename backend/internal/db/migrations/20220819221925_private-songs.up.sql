@@ -1,0 +1,7 @@
+-- ALTER TABLE song_book
+--      ADD COLUMN
+--     private BOOL NOT NULL DEFAULT false;
+--
+-- ALTER TABLE song
+--     ADD COLUMN
+--         private BOOL NOT NULL DEFAULT false;

@@ -7,6 +7,6 @@ type SongBook struct {
 	Name       string
 	UniqueName string
 	Author     string
-	OwnedBy    uuid.UUID
 	Deleted    bool
+	OwnedBy    uuid.UUID
 }
