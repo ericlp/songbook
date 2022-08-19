@@ -1,4 +1,4 @@
-module github.com/ericlp/tasteit/backend
+module github.com/ericlp/songbook/backend
 
 go 1.15
 

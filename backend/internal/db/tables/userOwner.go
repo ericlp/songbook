@@ -4,7 +4,7 @@ import "github.com/google/uuid"
 
 type UserOwner struct {
 	OwnerID       uuid.UUID
-	TasteitUserID uuid.UUID
+	songbookUserID uuid.UUID
 }
 
 func (_ UserOwner) StructName() string {

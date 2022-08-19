@@ -2,9 +2,9 @@ package endpoints
 
 import (
 	"errors"
-	"github.com/ericlp/tasteit/backend/internal/common"
-	"github.com/ericlp/tasteit/backend/internal/models"
-	"github.com/ericlp/tasteit/backend/internal/process"
+	"github.com/ericlp/songbook/backend/internal/common"
+	"github.com/ericlp/songbook/backend/internal/models"
+	"github.com/ericlp/songbook/backend/internal/process"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"

@@ -2,10 +2,10 @@ package endpoints
 
 import (
 	"errors"
-	"github.com/ericlp/tasteit/backend/internal/common"
-	"github.com/ericlp/tasteit/backend/internal/db/queries"
-	"github.com/ericlp/tasteit/backend/internal/db/tables"
-	"github.com/ericlp/tasteit/backend/internal/process"
+	"github.com/ericlp/songbook/backend/internal/common"
+	"github.com/ericlp/songbook/backend/internal/db/queries"
+	"github.com/ericlp/songbook/backend/internal/db/tables"
+	"github.com/ericlp/songbook/backend/internal/process"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"log"

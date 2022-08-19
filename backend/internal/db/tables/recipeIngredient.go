@@ -1,7 +1,7 @@
 package tables
 
 import (
-	"github.com/ericlp/tasteit/backend/internal/common"
+	"github.com/ericlp/songbook/backend/internal/common"
 	"github.com/google/uuid"
 )
 

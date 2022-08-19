@@ -1,9 +1,9 @@
 package api
 
 import (
-	"github.com/ericlp/tasteit/backend/internal/api/endpoints"
-	"github.com/ericlp/tasteit/backend/internal/api/endpoints/authentication"
-	"github.com/ericlp/tasteit/backend/internal/common"
+	"github.com/ericlp/songbook/backend/internal/api/endpoints"
+	"github.com/ericlp/songbook/backend/internal/api/endpoints/authentication"
+	"github.com/ericlp/songbook/backend/internal/common"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"

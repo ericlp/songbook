@@ -4,8 +4,8 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: tasteit
-      POSTGRES_DB: tasteit
+      POSTGRES_USER: songbook
+      POSTGRES_DB: songbook
       POSTGRES_PASSWORD: password
     ports:
       - 5432:5432
@@ -18,7 +18,7 @@ services:
       - 8080:8080
 
   frontend:
-    image: tasteit_frontend_dev
+    image: songbook_frontend_dev
     build:
       context: frontend
       dockerfile: dev.Dockerfile

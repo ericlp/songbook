@@ -1,6 +1,6 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE TABLE IF NOT EXISTS tasteit_user
+CREATE TABLE IF NOT EXISTS songbook_user
 (
     id   uuid PRIMARY KEY NOT NULL DEFAULT uuid_generate_v4(),
     nick TEXT             NOT NULL,
@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS owner
 CREATE TABLE IF NOT EXISTS user_owner
 (
     owner_id        uuid REFERENCES owner (id),
-    tasteit_user_id uuid REFERENCES tasteit_user (id),
-    PRIMARY KEY (owner_id, tasteit_user_id)
+    songbook_user_id uuid REFERENCES songbook_user (id),
+    PRIMARY KEY (owner_id, songbook_user_id)
 );
 
 CREATE TABLE IF NOT EXISTS recipe

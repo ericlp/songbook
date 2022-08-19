@@ -3,10 +3,10 @@ package process
 import (
 	"encoding/base64"
 	"fmt"
-	"github.com/ericlp/tasteit/backend/internal/common"
-	"github.com/ericlp/tasteit/backend/internal/db/commands"
-	"github.com/ericlp/tasteit/backend/internal/models"
-	"github.com/ericlp/tasteit/backend/internal/validation"
+	"github.com/ericlp/songbook/backend/internal/common"
+	"github.com/ericlp/songbook/backend/internal/db/commands"
+	"github.com/ericlp/songbook/backend/internal/models"
+	"github.com/ericlp/songbook/backend/internal/validation"
 	"os"
 )
 

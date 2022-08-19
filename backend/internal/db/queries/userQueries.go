@@ -1,14 +1,14 @@
 package queries
 
 import (
-	"github.com/ericlp/tasteit/backend/internal/db/tables"
+	"github.com/ericlp/songbook/backend/internal/db/tables"
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/google/uuid"
 )
 
 var getUserByIdQuery = `
 SELECT id, nick, cid
-FROM tasteit_user 
+FROM songbook_user 
 WHERE id=$1`
 
 func GetUser(id uuid.UUID) (*tables.User, error) {
@@ -21,7 +21,7 @@ func GetUser(id uuid.UUID) (*tables.User, error) {
 
 var getUserByCIDQuery = `
 SELECT id, nick, cid
-FROM tasteit_user
+FROM songbook_user
 WHERE cid=$1;
 `
 

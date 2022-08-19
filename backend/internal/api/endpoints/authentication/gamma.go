@@ -2,8 +2,8 @@ package authentication
 
 import (
 	"fmt"
-	"github.com/ericlp/tasteit/backend/internal/common"
-	"github.com/ericlp/tasteit/backend/internal/models"
+	"github.com/ericlp/songbook/backend/internal/common"
+	"github.com/ericlp/songbook/backend/internal/models"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/oauth2"
 	"log"

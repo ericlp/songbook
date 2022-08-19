@@ -1,6 +1,6 @@
 {
   "header": {
-    "pageTitle": "TasteIT",
+    "pageTitle": "songbook",
     "loginButton": "Sign in",
     "logoutButton": "Sign out",
     "recipes": "Recipes",
@@ -158,7 +158,7 @@
     "no_tags": "There are no tags"
   },
   "footer": {
-    "developedBy": "TasteIT was developed with ❤ by Vidde & LP",
+    "developedBy": "songbook was developed with ❤ by Vidde & LP",
     "sourceCode": "Source Code"
   }
 }

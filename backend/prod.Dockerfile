@@ -10,11 +10,11 @@ COPY ./go.sum /app/
 RUN go mod download
 
 COPY . /app
-RUN go build -o tasteit ./cmd/tasteit/main.go
+RUN go build -o songbook ./cmd/songbook/main.go
 
 FROM alpine
 
-COPY --from=builder /app/tasteit /tasteit
+COPY --from=builder /app/songbook /songbook
 COPY ./internal/db/migrations /internal/db/migrations
 
-ENTRYPOINT ["/tasteit"]
+ENTRYPOINT ["/songbook"]

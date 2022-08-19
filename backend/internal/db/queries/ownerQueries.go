@@ -1,7 +1,7 @@
 package queries
 
 import (
-	"github.com/ericlp/tasteit/backend/internal/db/tables"
+	"github.com/ericlp/songbook/backend/internal/db/tables"
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/google/uuid"
 )
@@ -36,7 +36,7 @@ func GetOwnerByName(name string) (*tables.Owner, error) {
 var getOwnersByUserIDQuery = `
 SELECT id, name, is_user
 FROM user_owner JOIN owner ON user_owner.owner_id = owner.id
-WHERE tasteit_user_id=$1`
+WHERE songbook_user_id=$1`
 
 func GetOwnersByUser(id uuid.UUID) ([]*tables.Owner, error) {
 	db := getDb()

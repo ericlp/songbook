@@ -16,4 +16,4 @@ DROP TABLE IF EXISTS "image";
 
 DROP TABLE IF EXISTS "user_owner";
 DROP TABLE IF EXISTS "owner";
-DROP TABLE IF EXISTS "tasteit_user";
+DROP TABLE IF EXISTS "songbook_user";

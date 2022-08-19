@@ -1,9 +1,9 @@
 package process
 
 import (
-	"github.com/ericlp/tasteit/backend/internal/db/queries"
-	"github.com/ericlp/tasteit/backend/internal/db/tables"
-	"github.com/ericlp/tasteit/backend/internal/models"
+	"github.com/ericlp/songbook/backend/internal/db/queries"
+	"github.com/ericlp/songbook/backend/internal/db/tables"
+	"github.com/ericlp/songbook/backend/internal/models"
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/google/uuid"
 )

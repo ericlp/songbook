@@ -1,8 +1,8 @@
 package process
 
 import (
-	"github.com/ericlp/tasteit/backend/internal/db/queries"
-	"github.com/ericlp/tasteit/backend/internal/models"
+	"github.com/ericlp/songbook/backend/internal/db/queries"
+	"github.com/ericlp/songbook/backend/internal/models"
 )
 
 type AuthorsJson struct {

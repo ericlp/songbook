@@ -1,14 +1,14 @@
 package queries
 
 import (
-	"github.com/ericlp/tasteit/backend/internal/db/tables"
+	"github.com/ericlp/songbook/backend/internal/db/tables"
 	"github.com/georgysavva/scany/pgxscan"
 )
 
 var getUserOwnerByUserIDQuery = `
-SELECT tasteit_user_id, owner_id 
+SELECT songbook_user_id, owner_id 
 FROM user_owner
-WHERE tasteit_user_id=$1 AND owner_id=$2`
+WHERE songbook_user_id=$1 AND owner_id=$2`
 
 func GetOwnerByUserAndOwner(user *tables.User, owner *tables.Owner) (*tables.UserOwner, error) {
 	db := getDb()

@@ -39,7 +39,7 @@ const Footer = () => {
         )}
         <nav>
           <ul>
-            <Link href={"https://github.com/ericlp/tasteit"}>
+            <Link href={"https://github.com/ericlp/songbook"}>
               <a>
                 <FontAwesomeIcon icon={faGithub} /> {t.footer.sourceCode}
               </a>

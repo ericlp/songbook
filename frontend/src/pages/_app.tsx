@@ -65,7 +65,7 @@ function MyApp({
           }}
         >
           <Head>
-            <title>TasteIT</title>
+            <title>songbook</title>
             <link rel="icon" href="/chef-hat.svg" />
           </Head>
 

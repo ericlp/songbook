@@ -1,8 +1,8 @@
 package commands
 
 import (
-	"github.com/ericlp/tasteit/backend/internal/db/tables"
-	"github.com/ericlp/tasteit/backend/internal/models"
+	"github.com/ericlp/songbook/backend/internal/db/tables"
+	"github.com/ericlp/songbook/backend/internal/models"
 	"github.com/georgysavva/scany/pgxscan"
 )
 
@@ -19,9 +19,9 @@ RETURNING id, name
 `
 
 var createUserOwnerCommand = `
-INSERT INTO user_owner(	owner_id, 	tasteit_user_id)
+INSERT INTO user_owner(	owner_id, 	songbook_user_id)
 VALUES(				$1, 		$2)
-RETURNING owner_id, tasteit_user_id
+RETURNING owner_id, songbook_user_id
 `
 
 func CreateDefaultUserOwner(user *tables.User) (*tables.Owner, error) {

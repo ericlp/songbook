@@ -1,19 +1,6 @@
-# Vrecipes
+# Songbook
 
-A recipe management website.
-
-## Fork and updating from the main repo
-
-This projekt is a fork of `https://github.com/ViddeM/vrecipes` and during development many changes were needed at both the main repo and this. So the change was made to the main repo to then be imported using the fork feature.
-
-Here is how you update this repository with new desired commits from the main repo.
-
-1. Below the `Code`, i.e. download button, _sync fork_ is present and can be pressed.
-2. If git can auto-merge the commits then a green button exists which can update TasteIT with the changes automatically.
-3. If there are conflicts Github only displays the `discard XX commits` and the merge has to be done automatically.
-4. Run `git merge --no-ff upstream/master` and solve the merge conflicts. IntelliJ has an excellent merge-tool.
-5. Commits and push.
-6. Profit!
+The official songbook of IT and a general song management website.
 
 ## Development setup
 
@@ -34,7 +21,7 @@ The steps to setup the backend is as follows (all of these assume that you are i
 
 1. Copy the `.env.example` file to `.env`, an explaination of all the fields in this file can be found [below](#environment-variables).
 2. Setup the Oauth2 login for Gamma.
-3. Run the main method in `backend/cmd/tasteit/main.go`.
+3. Run the main method in `backend/cmd/songbook/main.go`.
 
 ### Makefile
 
@@ -85,6 +72,6 @@ For development, the client and secret is a bit funky. The default values wouldn
 - `GAMMA_REDIRECT_URI`: The uri to redirect to with the response from Gamma (should be **frontend base url**`/api/auth/account/callback`)
 - `GAMMA_TOKEN_URI`: (should be **gamma backend url**`/api/oath/token`)
 - `GAMMA_ME_URI`: The uri to fetch the me user object from gamma. (should be **gamma backend url**`/api/users/me`)
-- `GAMMA_SECRET`: The secret that gamma has stored for tasteIT, retrieved when setting up the oauth2 service. (example BefJFlmvJJjWTGPmpXWQXIpD6jzbSYAiwJRLqyUfUwrepd3gn4MGYAvROsZKQBVTiMapoRiDkRY)
-- `GAMMA_CLIENT_ID`: The client id that gamma has stored for tasteIT, retrieved when setting up the oauth2 service. (example meY2VSxhZIxtCCeKgJ7jH3Odli3UmmcvrwiELhtSsvzZ1bMt33E2QpD8ctHR7CJMBTBKRismZSX)
+- `GAMMA_SECRET`: The secret that gamma has stored for songbook, retrieved when setting up the oauth2 service. (example BefJFlmvJJjWTGPmpXWQXIpD6jzbSYAiwJRLqyUfUwrepd3gn4MGYAvROsZKQBVTiMapoRiDkRY)
+- `GAMMA_CLIENT_ID`: The client id that gamma has stored for songbook, retrieved when setting up the oauth2 service. (example meY2VSxhZIxtCCeKgJ7jH3Odli3UmmcvrwiELhtSsvzZ1bMt33E2QpD8ctHR7CJMBTBKRismZSX)
 - `GAMMA_LOGOUT_URL`: The url to log the user out. (should be **gamma backend url**`/api/logout`)
