@@ -53,14 +53,9 @@ CREATE TABLE tag
 
 CREATE TABLE song_tag
 (
-    song_id uuid REFERENCES song (id),
-    tag_id  uuid REFERENCES tag (id),
+    song_id uuid REFERENCES song (id) NOT NULL,
+    tag_id  uuid REFERENCES tag (id) NOT NULL,
     UNIQUE (song_id, tag_id)
-);
-
-CREATE TABLE IF NOT EXISTS official_song_book
-(
-    song_book_id uuid REFERENCES song (id) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS song_book
@@ -70,6 +65,11 @@ CREATE TABLE IF NOT EXISTS song_book
     unique_name TEXT             NOT NULL UNIQUE,
     deleted     BOOLEAN          NOT NULL,
     owned_by    uuid REFERENCES owner (id)
+);
+
+CREATE TABLE IF NOT EXISTS official_song_book
+(
+    song_book_id uuid REFERENCES song_book (id) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS song_book_song
@@ -93,4 +93,3 @@ CREATE TABLE IF NOT EXISTS song_book_image
     image_id     uuid REFERENCES image (id),
     PRIMARY KEY (song_book_id, image_id)
 );
-
