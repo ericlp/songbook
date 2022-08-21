@@ -20,6 +20,13 @@ CREATE TABLE IF NOT EXISTS user_owner
     PRIMARY KEY (owner_id, songbook_user_id)
 );
 
+CREATE TABLE IF NOT EXISTS melody
+(
+    id      uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    melody  TEXT                      NOT NULL,
+    link    TEXT                      NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS song
 (
     id             uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -31,15 +38,6 @@ CREATE TABLE IF NOT EXISTS song
     text           TEXT                          NOT NULL,
     deleted        BOOLEAN                       NOT NULL,
     owned_by       uuid REFERENCES owner (id)    NOT NULL
-);
-
-
-CREATE TABLE IF NOT EXISTS melody
-(
-    id      uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-    song_id uuid REFERENCES song (id) NOT NULL,
-    melody  TEXT                      NOT NULL,
-    link    TEXT                      NOT NULL
 );
 
 CREATE TABLE tag
