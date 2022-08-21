@@ -7,7 +7,6 @@ import (
 	common2 "github.com/ericlp/songbook/backend/internal/common"
 	"github.com/ericlp/songbook/backend/internal/db/commands"
 	"github.com/ericlp/songbook/backend/internal/db/queries"
-	"github.com/ericlp/songbook/backend/internal/db/specialMigrations"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
