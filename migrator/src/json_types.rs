@@ -17,7 +17,7 @@ pub struct Data {
 pub struct Song {
     pub song_id: String,
     pub title: String,
-    pub number: u32,
+    pub number: i32,
     pub melody: String,
     pub author: String,
     pub text: String,

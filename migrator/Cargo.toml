@@ -19,3 +19,4 @@ sqlx = { version = "0.6", features = [
 ] }
 rand = "0.8.4"
 tokio = { version = "1.20", features = ["full"] }
+dotenv = "0.15"
