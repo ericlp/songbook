@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS song_book
     name        TEXT             NOT NULL UNIQUE,
     unique_name TEXT             NOT NULL UNIQUE,
     deleted     BOOLEAN          NOT NULL,
-    owned_by    uuid REFERENCES owner (id)
+    owned_by    uuid REFERENCES owner (id) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS official_song_book

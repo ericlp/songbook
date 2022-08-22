@@ -51,7 +51,7 @@ pub struct SongBook {
     pub name: String,
     pub unique_name: String,
     pub deleted: bool,
-    pub owned_by: Option<Uuid>,
+    pub owned_by: Uuid,
 }
 
 #[derive(Debug, Clone, sqlx::FromRow)]
