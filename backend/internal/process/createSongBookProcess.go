@@ -45,12 +45,12 @@ func generateUniqueBookName(name string) (string, error) {
 	return uniqueName, common.ErrNameTaken
 }
 
-func createSongBookRecipes(
+func createSongBookSongs(
 	songBookId uuid.UUID,
-	recipes []uuid.UUID,
+	songs []uuid.UUID,
 ) error {
-	for _, recipe := range recipes {
-		_, err := commands.CreateSongBookRecipe(songBookId, recipe)
+	for _, song := range songs {
+		_, err := commands.CreateSongBookSong(songBookId, song)
 		if err != nil {
 			return err
 		}

@@ -6,9 +6,9 @@ import (
 	"github.com/ericlp/songbook/backend/internal/db/tables"
 )
 
-func DeleteRecipe(recipe *tables.Recipe) error {
-	deletedName := fmt.Sprintf("%s_%s_deleted", recipe.Name, recipe.ID)
-	deletedUniqueName := fmt.Sprintf("%s_%s_deleted", recipe.UniqueName, recipe.ID)
+func DeleteSong(song *tables.Song) error {
+	deletedName := fmt.Sprintf("%s_%s_deleted", song.Title, song.ID)
+	deletedUniqueName := fmt.Sprintf("%s_%s_deleted", song.UniqueName, song.ID)
 
-	return commands.RecipeSetDeleted(deletedName, deletedUniqueName, recipe.ID)
+	return commands.SongSetDeleted(deletedName, deletedUniqueName, song.ID)
 }

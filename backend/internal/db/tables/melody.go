@@ -4,7 +4,6 @@ import "github.com/google/uuid"
 
 type Melody struct {
 	ID     uuid.UUID
-	SongId uuid.UUID
 	Melody string
 	Link   string
 }

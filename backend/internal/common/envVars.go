@@ -19,6 +19,9 @@ type envVars struct {
 	GinMode     string
 	Port        uint16
 
+	UnknownMelodyName string
+	DefaultMelodyLink string
+
 	GammaAuthorizationUri string
 	GammaRedirectUri      string
 	GammaTokenUri         string
@@ -63,6 +66,9 @@ func loadEnvVars() {
 		Port:        loadUint16("PORT"),
 		ImageFolder: loadNonEmptyString("image_folder"),
 
+		UnknownMelodyName: loadNonEmptyString("UNKNOWN_MELODY_NAME"),
+		DefaultMelodyLink: loadNonEmptyString("DEFAULT_MELODY_LINK"),
+		
 		GammaAuthorizationUri: loadNonEmptyString("GAMMA_AUTHORIZATION_URI"),
 		GammaRedirectUri:      loadNonEmptyString("GAMMA_REDIRECT_URI"),
 		GammaTokenUri:         loadNonEmptyString("GAMMA_TOKEN_URI"),

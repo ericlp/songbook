@@ -9,7 +9,7 @@ import (
 )
 
 func Authors(c *gin.Context) {
-	recipes, err := process.GetAllAuthors()
+	songs, err := process.GetAllAuthors()
 	if err != nil {
 		log.Printf("Error: Failed to retrieve recipes due to %s\n", err)
 		c.JSON(
@@ -19,5 +19,5 @@ func Authors(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, common.Success(recipes))
+	c.JSON(http.StatusOK, common.Success(songs))
 }

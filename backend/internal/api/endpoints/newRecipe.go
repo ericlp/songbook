@@ -16,22 +16,22 @@ import (
 var ErrNoUserInContext = errors.New("no userID could be extracted from the context")
 var ErrInvalidUserIdInContext = errors.New("the userID in the context was of an invalid type")
 
-type NewRecipeJson struct {
+type NewSongJson struct {
 	UniqueName string `json:"uniqueName"`
 }
 
-func NewRecipe(c *gin.Context) {
-	recipeJson, err := validateNewRecipe(c)
+func NewSong(c *gin.Context) {
+	songJson, err := validateNewSong(c)
 	if err != nil {
-		log.Printf("Failed to validate new recipe json: %v\n", err)
+		log.Printf("Failed to validate new song json: %v\n", err)
 		c.JSON(http.StatusBadRequest, common.Error(common.ResponseInvalidJson))
 		return
 	}
 
-	uniqueName, err := process.CreateNewRecipe(recipeJson)
+	uniqueName, err := process.CreateNewRecipe(songJson)
 	if err != nil {
 		if errors.Is(err, common.ErrNameTaken) {
-			log.Printf("Tried to create duplicate recipe")
+			log.Printf("Tried to create duplicate song")
 			c.JSON(
 				http.StatusUnprocessableEntity,
 				common.Error(common.ResponseRecipeNameExist),
@@ -39,7 +39,7 @@ func NewRecipe(c *gin.Context) {
 			return
 		}
 
-		log.Printf("Failed to create new recipe: %v\n", err)
+		log.Printf("Failed to create new song: %v\n", err)
 		c.JSON(
 			http.StatusInternalServerError,
 			common.Error(common.ResponseFailedToCreateRecipe),
@@ -49,14 +49,14 @@ func NewRecipe(c *gin.Context) {
 
 	c.JSON(
 		http.StatusCreated,
-		common.Success(NewRecipeJson{UniqueName: uniqueName}),
+		common.Success(NewSongJson{UniqueName: uniqueName}),
 	)
 }
 
-func validateNewRecipe(c *gin.Context) (*models.NewRecipeJson, error) {
-	var recipe models.NewRecipeJson
-	err := c.ShouldBindJSON(&recipe)
-	return &recipe, err
+func validateNewSong(c *gin.Context) (*models.NewSongJson, error) {
+	var song models.NewSongJson
+	err := c.ShouldBindJSON(&song)
+	return &song, err
 }
 
 var ErrUserNotAuthorized = errors.New("user not authorized")

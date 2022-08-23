@@ -33,16 +33,16 @@ func GetUserByCID(cid string) (*tables.User, error) {
 	return &user, err
 }
 
-var GetAllOwnersWithRecipeQuery = `
+var GetAllOwnersWithSongQuery = `
 SELECT DISTINCT owner.id, owner.name
 FROM owner
-INNER JOIN recipe ON recipe.owned_by=owner.id
+INNER JOIN song ON song.owned_by=owner.id
 `
 
-func GetAllUsersWithRecipe() ([]tables.Owner, error) {
+func GetAllUsersWithSong() ([]tables.Owner, error) {
 	db := getDb()
 
 	var owners []tables.Owner
-	err := pgxscan.Select(ctx, db, &owners, GetAllOwnersWithRecipeQuery)
+	err := pgxscan.Select(ctx, db, &owners, GetAllOwnersWithSongQuery)
 	return owners, err
 }

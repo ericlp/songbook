@@ -10,23 +10,20 @@ import (
 	"strings"
 )
 
-func CreateRecipe(
-	newRecipe *models.NewRecipeJson,
-) (*tables.Recipe, error) {
-	uniqueName, err := generateUniqueName(newRecipe.Name)
+func CreateSong(
+	newSong *models.NewSongJson,
+) (*tables.Song, error) {
+	uniqueName, err := generateUniqueName(newSong.Title)
 	if err != nil {
 		return nil, err
 	}
-	recipe, err := commands.CreateRecipe(
-		newRecipe.Name,
+	song, err := commands.CreateSong(
+		newSong.Title,
 		uniqueName,
 		"",
-		0,
-		0,
-		0,
-		newRecipe.OwnerId,
+		newSong.OwnerId,
 	)
-	return recipe, err
+	return song, err
 }
 
 func CreateNewRecipe(

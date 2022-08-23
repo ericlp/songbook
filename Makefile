@@ -10,11 +10,12 @@ GAMMA_DB_DOCKER_NAME = 'songbook-gamma-db-1'
 GAMMA_DB_USER= 'gamma'
 GAMMA_DB_NAME= 'gamma'
 
-mock: mock_data/mockdata.sql
-	docker exec -i $(SONGBOOK_DB_DOCKER_NAME) psql -U $(db_name) $(db_user) < mock_data/db_dump.sql
+mock: mock_data/mockUser.sql mock_data/dump.sql
+	docker exec -i $(SONGBOOK_DB_DOCKER_NAME) psql -U $(db_user) $(db_name) < mock_data/dump.sql
+	docker exec -i $(SONGBOOK_DB_DOCKER_NAME) psql -U $(db_user) $(db_name) < mock_data/mockUser.sql
 
 clear-db:
-	echo 'DROP SCHEMA public CASCADE; CREATE SCHEMA public' | docker exec -i $(SONGBOOK_DB_DOCKER_NAME) psql -U $(db_name) $(db_user)
+	echo 'DROP SCHEMA public CASCADE; CREATE SCHEMA public' | docker exec -i $(SONGBOOK_DB_DOCKER_NAME) psql -U $(db_user) $(db_name)
 
 clean: clear-db
 
@@ -25,10 +26,13 @@ run-migrations:
 	migrate -database $(SONGBOOK_DB_URL) -path $(MIGRATION_PATH) up
 
 setup-gamma-client:
-	docker exec -i $(GAMMA_DB_DOCKER_NAME) psql -U $(GAMMA_DB_NAME) $(GAMMA_DB_USER) < mock_data/gammaClient.sql
+	docker exec -i $(GAMMA_DB_DOCKER_NAME) psql -U $(GAMMA_DB_USER) $(GAMMA_DB_NAME) < mock_data/gammaClient.sql
 	
 reset-setup-db:
 	make clean
-	make run-migrations
 	make mock
 	make setup-gamma-client
+
+db-dump:
+	docker exec -i $(SONGBOOK_DB_DOCKER_NAME) pg_dump -U $(db_user) $(db_name) > mock_data/dump.sql
+

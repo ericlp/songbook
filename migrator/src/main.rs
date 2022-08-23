@@ -108,7 +108,11 @@ async fn main() {
             &mut transaction,
             song.title.clone(),
             song.author,
-            song.song_id,
+            song.title
+                .as_str()
+                .to_lowercase()
+                .replace(" ", "_")
+                .to_string(),
             melody_id,
             None,
             song.text,
