@@ -11,10 +11,7 @@ GAMMA_DB_USER= 'gamma'
 GAMMA_DB_NAME= 'gamma'
 
 mock: mock_data/mockdata.sql
-	mkdir -p backend/static/images/
-	cp mock_data/*.png backend/static/images/
-	cp mock_data/*.jpg backend/static/images/
-	docker exec -i $(SONGBOOK_DB_DOCKER_NAME) psql -U $(db_name) $(db_user) < mock_data/mockdata.sql
+	docker exec -i $(SONGBOOK_DB_DOCKER_NAME) psql -U $(db_name) $(db_user) < mock_data/db_dump.sql
 
 clear-db:
 	echo 'DROP SCHEMA public CASCADE; CREATE SCHEMA public' | docker exec -i $(SONGBOOK_DB_DOCKER_NAME) psql -U $(db_name) $(db_user)
