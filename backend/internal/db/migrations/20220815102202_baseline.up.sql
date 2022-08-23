@@ -20,6 +20,13 @@ CREATE TABLE IF NOT EXISTS user_owner
     PRIMARY KEY (owner_id, songbook_user_id)
 );
 
+CREATE TABLE IF NOT EXISTS melody
+(
+    id      uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    melody  TEXT                      NOT NULL,
+    link    TEXT                      NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS song
 (
     id             uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -31,15 +38,6 @@ CREATE TABLE IF NOT EXISTS song
     text           TEXT                          NOT NULL,
     deleted        BOOLEAN                       NOT NULL,
     owned_by       uuid REFERENCES owner (id)    NOT NULL
-);
-
-
-CREATE TABLE IF NOT EXISTS melody
-(
-    id      uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-    song_id uuid REFERENCES song (id) NOT NULL,
-    melody  TEXT                      NOT NULL,
-    link    TEXT                      NOT NULL
 );
 
 CREATE TABLE tag
@@ -55,14 +53,9 @@ CREATE TABLE tag
 
 CREATE TABLE song_tag
 (
-    song_id uuid REFERENCES song (id),
-    tag_id  uuid REFERENCES tag (id),
+    song_id uuid REFERENCES song (id) NOT NULL,
+    tag_id  uuid REFERENCES tag (id) NOT NULL,
     UNIQUE (song_id, tag_id)
-);
-
-CREATE TABLE IF NOT EXISTS official_song_book
-(
-    song_book_id uuid REFERENCES song (id) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS song_book
@@ -71,7 +64,12 @@ CREATE TABLE IF NOT EXISTS song_book
     name        TEXT             NOT NULL UNIQUE,
     unique_name TEXT             NOT NULL UNIQUE,
     deleted     BOOLEAN          NOT NULL,
-    owned_by    uuid REFERENCES owner (id)
+    owned_by    uuid REFERENCES owner (id) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS official_song_book
+(
+    song_book_id uuid REFERENCES song_book (id) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS song_book_song
@@ -95,4 +93,3 @@ CREATE TABLE IF NOT EXISTS song_book_image
     image_id     uuid REFERENCES image (id),
     PRIMARY KEY (song_book_id, image_id)
 );
-
