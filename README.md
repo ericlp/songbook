@@ -16,12 +16,13 @@ For the frontend the following steps are necessary:
 
 ### Backend
 
+_Requires go to be installed_
 The backend is not included into the `docker compose` to simplify developing the backend without having to restart everything else.  
 The steps to setup the backend is as follows (all of these assume that you are inside of the `backend/` folder):
 
 1. Copy the `.env.example` file to `.env`, an explaination of all the fields in this file can be found [below](#environment-variables).
-2. Setup the Oauth2 login for Gamma.
-3. Run the main method in `backend/cmd/songbook/main.go`.
+2. Run ``
+3. Run the main method in `backend/cmd/tasteit/main.go`. Use `go run ......./main.go` or run using IntelliJ Goland
 
 ### Makefile
 
@@ -32,7 +33,8 @@ In the root folder there is also a Makefile with the following commands:
 - `clean`: Alias for `clear-db`.
 - `new-migration mig_name_arg=*insert-migration-name*`: creates a new migration with the specified name.
 - `run-migrations`: runs all migrations.
-- `reset`: Perform `clean`, `run-migrations`, `mock` in that order.
+- `setup-gamma-client`: resets the client in gamma with client_id and secret equal to that in .env.example
+- `reset-setup-db`: Perform `clean`, `run-migrations`, `mock`, `setup-gamma-client` in that order.
 
 ### Migrations
 

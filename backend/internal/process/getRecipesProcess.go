@@ -38,7 +38,6 @@ func toShortRecipeJson(
 		Author: models.Owner{
 			Id:     owner.ID,
 			Name:   owner.Name,
-			IsUser: owner.IsUser,
 		},
 		Tags:                tags,
 		EstimatedTime:       recipe.EstimatedTime,
@@ -135,7 +134,6 @@ func recipeTagsToTagJsons(recipeTags []*tables.RecipeTag) (
 				Author: models.Owner{
 					Id:     owner.ID,
 					Name:   owner.Name,
-					IsUser: owner.IsUser,
 				},
 			},
 		)

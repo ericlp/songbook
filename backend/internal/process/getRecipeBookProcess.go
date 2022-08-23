@@ -56,7 +56,6 @@ func GetSongBook(uniqueName string) (*models.DetailedSongBookJson, error) {
 		UploadedBy: models.Owner{
 			Id:     owner.ID,
 			Name:   owner.Name,
-			IsUser: owner.IsUser,
 		},
 		Author:  songBook.Author,
 		Recipes: recipeJsons,

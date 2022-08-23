@@ -46,7 +46,6 @@ func GetTags() (*TagsJson, error) {
 				Author: models.Owner{
 					Id:     owner.ID,
 					Name:   owner.Name,
-					IsUser: owner.IsUser,
 				},
 			},
 		)

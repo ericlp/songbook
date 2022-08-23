@@ -20,7 +20,6 @@ func GetAllAuthors() (*AuthorsJson, error) {
 		authorsJson = append(authorsJson, models.Owner{
 			Id:     author.ID,
 			Name:   author.Name,
-			IsUser: author.IsUser,
 		})
 	}
 

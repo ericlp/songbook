@@ -67,7 +67,6 @@ func GetRecipe(uniqueName string) (*models.DetailedRecipeJson, error) {
 		Author: models.Owner{
 			Id:     owner.ID,
 			Name:   owner.Name,
-			IsUser: owner.IsUser,
 		},
 		Tags: tags,
 		Portions:        recipe.Portions,

@@ -37,21 +37,21 @@ const Login = () => {
         <Button
           variant="primary"
           size="large"
-          className={`${styles.signInButton} ${styles.microsoftButton}`}
+          className={`${styles.signInButton} ${styles.gammaButton}`}
           onClick={() => {
             handleLoginResponse(Api.user.login());
           }}
         >
           <div className={styles.signInButtonIcon}>
             <Image
-              alt="Microsoft"
+              alt="ITlogo"
               src={"/itlogo.svg"}
               layout={"responsive"}
               width={"16px"}
               height={"16px"}
             />
           </div>
-          {t.login.loginWithMicrosoft}
+          {t.login.loginWithGamma}
         </Button>
 
         <div className={"space"} />

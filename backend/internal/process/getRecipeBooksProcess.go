@@ -31,7 +31,6 @@ func toShortSongBookJson(songBook *tables.SongBook, owner *tables.Owner, imageUr
 		UploadedBy: models.Owner{
 			Id:     owner.ID,
 			Name:   owner.Name,
-			IsUser: owner.IsUser,
 		},
 	}
 }
