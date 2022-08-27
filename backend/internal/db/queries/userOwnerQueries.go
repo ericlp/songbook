@@ -8,7 +8,7 @@ import (
 var getUserOwnerByUserIDQuery = `
 SELECT songbook_user_id, owner_id 
 FROM user_owner
-WHERE songbook_user_id=$1 AND owner_id=$2`
+WHERE  songbook_user_id=$1 AND owner_id=$2`
 
 func GetOwnerByUserAndOwner(user *tables.User, owner *tables.Owner) (*tables.UserOwner, error) {
 	db := getDb()

@@ -35,21 +35,21 @@ func Init() {
 		api.Static("/images", envVars.ImageFolder)
 
 		api.GET("/health", endpoints.HealthCheck)
-		api.GET("/recipes/:uniqueName", endpoints.Recipe)
-		api.GET("/recipes", endpoints.Recipes)
-		api.GET("/books/:uniqueName", endpoints.SongBook)
+		api.GET("/songs", endpoints.Songs)
+		api.GET("/song/:uniqueName", endpoints.Song)
 		api.GET("/books", endpoints.SongBooks)
+		api.GET("/books/:uniqueName", endpoints.SongBook)
 		api.GET("/tags", endpoints.Tags)
 		api.GET("/authors", endpoints.Authors)
 
 		authRequired := api.Group("")
 		{
-			authRequired.Use(authentication.CheckAuth())
+			//authRequired.Use(authentication.CheckAuth())
 
 			authRequired.GET("/me", authentication.Me)
-			authRequired.POST("/recipes", endpoints.NewRecipe)
-			authRequired.PUT("/recipes/:id", endpoints.EditRecipe)
-			authRequired.DELETE("/recipes/:id", endpoints.RemoveRecipe)
+			authRequired.POST("/songs", endpoints.NewSong)
+			authRequired.PUT("/songs/:id", endpoints.EditSong)
+			authRequired.DELETE("/songs/:id", endpoints.RemoveSong)
 			authRequired.PUT("/images", endpoints.ImageUpload)
 			authRequired.POST("/books", endpoints.NewSongBook)
 			authRequired.DELETE("/books/:id", endpoints.RemoveSongBook)

@@ -5,20 +5,15 @@ import (
 	"github.com/google/uuid"
 )
 
-type EditRecipeJson struct {
-	Title           string          `json:"title" binding:"required"`
-	Author          string          `json:"author"`
-	PrimaryMelody   EditMelodyJson  `json:"primaryMelody" binding:"required,dive,required"`
-	SecondaryMelody *EditMelodyJson `json:"secondaryMelody" binding:"required,dive,required"`
-	Text            string          `json:"text" binding:"required"`
-	Tags            []uuid.UUID     `json:"tags" binding:"required"`
+type EditSongJson struct {
+	Title           string      `json:"title" binding:"required"`
+	Author          string      `json:"author"`
+	PrimaryMelody   MelodyJson  `json:"primaryMelody" binding:"required,dive,required"`
+	SecondaryMelody MelodyJson  `json:"secondaryMelody" binding:"required,dive,required"`
+	Text            string      `json:"text" binding:"required"`
+	Tags            []uuid.UUID `json:"tags" binding:"required"`
 }
 
-type EditMelodyJson struct {
-	Melody string `json:"melody" validate:"required"`
-	Link   string `json:"link" validate:"required"`
-}
-
-func (step *EditMelodyJson) SameAs(other *tables.Melody) bool {
-	return step.Melody == other.Melody && step.Link == other.Link
+func (melody *MelodyJson) SameAs(other *tables.Melody) bool {
+	return melody.Melody == other.Melody && melody.Link == other.Link
 }

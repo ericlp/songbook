@@ -28,13 +28,13 @@ func NewSong(c *gin.Context) {
 		return
 	}
 
-	uniqueName, err := process.CreateNewRecipe(songJson)
+	uniqueName, err := process.CreateNewSong(songJson)
 	if err != nil {
 		if errors.Is(err, common.ErrNameTaken) {
 			log.Printf("Tried to create duplicate song")
 			c.JSON(
 				http.StatusUnprocessableEntity,
-				common.Error(common.ResponseRecipeNameExist),
+				common.Error(common.ResponseSongNameExist),
 			)
 			return
 		}
@@ -42,7 +42,7 @@ func NewSong(c *gin.Context) {
 		log.Printf("Failed to create new song: %v\n", err)
 		c.JSON(
 			http.StatusInternalServerError,
-			common.Error(common.ResponseFailedToCreateRecipe),
+			common.Error(common.ResponseFailedToCreateSong),
 		)
 		return
 	}

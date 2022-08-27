@@ -8,7 +8,7 @@ type DetailedSongBookJson struct {
 	ID         uuid.UUID          `json:"id"`
 	Name       string             `json:"name"`
 	UniqueName string             `json:"uniqueName"`
-	Songs      []SongBookSongJson `json:"recipes"`
+	Songs      []SongBookSongJson `json:"songs"`
 	Image      *ImageJson         `json:"image"`
 	OwnedBy    Owner              `json:"ownedBy"`
 }

@@ -1,11 +1,14 @@
 package process
 
 import (
+	"fmt"
 	"github.com/ericlp/songbook/backend/internal/common"
 	"github.com/ericlp/songbook/backend/internal/db/queries"
 	"github.com/ericlp/songbook/backend/internal/db/tables"
 	"github.com/ericlp/songbook/backend/internal/models"
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
+	"os"
 )
 
 func GetSongBook(uniqueName string) (*models.DetailedSongBookJson, error) {
@@ -21,7 +24,7 @@ func GetSongBook(uniqueName string) (*models.DetailedSongBookJson, error) {
 		return nil, common.ErrNoSuchSongBook
 	}
 
-	recipes, err := queries.GetRecipesForSongBook(songBook.ID)
+	songs, err := queries.GetSongsForSongBook(songBook.ID)
 	if err != nil && !pgxscan.NotFound(err) {
 		return nil, err
 	}
@@ -44,7 +47,7 @@ func GetSongBook(uniqueName string) (*models.DetailedSongBookJson, error) {
 		return nil, err
 	}
 
-	recipeJsons, err := RecipesToJson(recipes)
+	songJsons, err := SongsToJson(songs)
 	if err != nil {
 		return nil, err
 	}
@@ -53,36 +56,48 @@ func GetSongBook(uniqueName string) (*models.DetailedSongBookJson, error) {
 		ID:         songBook.ID,
 		Name:       songBook.Name,
 		UniqueName: songBook.UniqueName,
-		UploadedBy: models.Owner{
-			Id:     owner.ID,
-			Name:   owner.Name,
+		Songs:      songJsons,
+		Image:      imageJson,
+		OwnedBy: models.Owner{
+			Id:   owner.ID,
+			Name: owner.Name,
 		},
-		Author:  songBook.Author,
-		Recipes: recipeJsons,
-		Image:   imageJson,
 	}, nil
 }
 
-func RecipesToJson(recipes []*tables.Recipe) (
-	[]models.SongBookRecipeJson,
+func SongsToJson(songs []*tables.Song) (
+	[]models.SongBookSongJson,
 	error,
 ) {
-	recipeJsons := make([]models.SongBookRecipeJson, 0)
-	for _, recipe := range recipes {
-		owner, err := queries.GetOwner(recipe.OwnedBy)
+	songJsons := make([]models.SongBookSongJson, 0)
+	for _, song := range songs {
+		owner, err := queries.GetOwner(song.OwnedBy)
 		if err != nil {
 			return nil, err
 		}
 
-		recipeJsons = append(
-			recipeJsons, models.SongBookRecipeJson{
-				Name:       recipe.Name,
-				UniqueName: recipe.UniqueName,
+		songJsons = append(
+			songJsons, models.SongBookSongJson{
+				ID:         song.ID,
+				Title:      song.Title,
+				UniqueName: song.UniqueName,
 				Author:     owner.Name,
-				ID:         recipe.ID,
 			},
 		)
 	}
 
-	return recipeJsons, nil
+	return songJsons, nil
+}
+
+func imageNameToPath(id uuid.UUID, name string) string {
+	imagePath := common.GetEnvVars().ImageFolder
+	filePath := fmt.Sprintf("%s/%s", imagePath, name)
+	_, err := os.Stat(filePath)
+	if err == nil {
+		return name
+	}
+
+	nameWithId := fmt.Sprintf("%s_%s", id, name)
+	filePath = fmt.Sprintf("%s/%s", imagePath, nameWithId)
+	return nameWithId
 }

@@ -9,28 +9,28 @@ import (
 	"net/http"
 )
 
-func Recipe(c *gin.Context) {
+func Song(c *gin.Context) {
 	uniqueName := c.Param("uniqueName")
-	detailedRecipe, err := process.GetRecipe(uniqueName)
+	detailedSong, err := process.GetSong(uniqueName)
 	if err != nil {
-		if errors.Is(err, common.ErrNoSuchRecipe) {
+		if errors.Is(err, common.ErrNoSuchSong) {
 			c.JSON(
 				http.StatusNotFound,
-				common.Error(common.ResponseRecipeNotFound),
+				common.Error(common.ResponseSongNotFound),
 			)
 			return
 		}
 		log.Printf(
-			"Error: Failed to retrieve recipe %s, due to error: %s\n",
+			"Error: Failed to retrieve song %s, due to error: %s\n",
 			uniqueName,
 			err,
 		)
 		c.JSON(
 			http.StatusInternalServerError,
-			common.Error(common.ResponseFailedToRetrieveRecipe),
+			common.Error(common.ResponseFailedToRetrieveSong),
 		)
 		return
 	}
 
-	c.JSON(http.StatusOK, common.Success(detailedRecipe))
+	c.JSON(http.StatusOK, common.Success(detailedSong))
 }

@@ -6,7 +6,7 @@ import (
 )
 
 func DeleteTag(tag *tables.Tag) error {
-	err := commands.DeleteRecipeTagsByTagId(tag.ID)
+	err := commands.DeleteSongTagsByTagId(tag.ID)
 	if err != nil {
 		return err
 	}

@@ -11,11 +11,11 @@ INSERT INTO song(title,	author, unique_name, primary_melody, secondary_melody, t
 VALUES 			($1,   	$2,		$3,          $4,        	 $5,               $6,	 $7,      $8)
 RETURNING id, title, author, unique_name, primary_melody, secondary_melody, text, deleted, owned_by`
 
-func CreateSong(title, uniqueName string, primaryMelody, OwnedBy uuid.UUID) (*tables.Song, error) {
+func CreateSong(title, uniqueName string, primaryMelody, secondaryMelody, OwnedBy uuid.UUID) (*tables.Song, error) {
 	db := getDb()
 
 	var song tables.Song
-	err := pgxscan.Get(ctx, db, &song, createSongCommand, title, "", uniqueName, primaryMelody, nil, "", false, OwnedBy)
+	err := pgxscan.Get(ctx, db, &song, createSongCommand, title, "", uniqueName, primaryMelody, secondaryMelody, "", false, OwnedBy)
 	return &song, err
 }
 
@@ -30,7 +30,7 @@ SET title=$1,
 WHERE id=$7
 `
 
-func UpdateSong(title, author, uniqueName string, primaryMelody uuid.UUID, secondaryMelody *uuid.UUID, text string, songId uuid.UUID) error {
+func UpdateSong(title, author, uniqueName string, text string, primaryMelody, secondaryMelody, songId uuid.UUID) error {
 	db := getDb()
 
 	_, err := db.Exec(ctx, updateSongCommand, title, author, uniqueName, primaryMelody, secondaryMelody, text, songId)

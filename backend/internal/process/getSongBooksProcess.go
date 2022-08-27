@@ -18,7 +18,7 @@ type ShortSongBookJson struct {
 	UniqueName string       `json:"uniqueName"`
 	Author     string       `json:"author"`
 	ImageLink  string       `json:"imageLink"`
-	UploadedBy models.Owner `json:"uploadedBy"`
+	OwnedBy    models.Owner `json:"ownedBy"`
 }
 
 func toShortSongBookJson(songBook *tables.SongBook, owner *tables.Owner, imageUrl string) ShortSongBookJson {
@@ -28,9 +28,9 @@ func toShortSongBookJson(songBook *tables.SongBook, owner *tables.Owner, imageUr
 		UniqueName: songBook.UniqueName,
 		Author:     songBook.Author,
 		ImageLink:  imageUrl,
-		UploadedBy: models.Owner{
-			Id:     owner.ID,
-			Name:   owner.Name,
+		OwnedBy: models.Owner{
+			Id:   owner.ID,
+			Name: owner.Name,
 		},
 	}
 }

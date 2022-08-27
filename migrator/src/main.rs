@@ -60,6 +60,7 @@ async fn main() {
         &mut transaction,
         config.default_song_book_name,
         config.default_song_book_unique_name,
+        "".to_string(),
         owner.id,
     )
     .await
@@ -81,6 +82,11 @@ async fn main() {
     )
     .await
     .expect("Failed to create unknown melody");
+
+    println!("\n\nCreating the empty secondary melody");
+    let empty_melody = create_melody(&mut transaction, "".to_string(), "".to_string())
+        .await
+        .expect("Failed to create empty melody");
 
     println!("\n\nCreating the songs");
     for (_, song) in data.data.songs.into_iter() {
@@ -114,7 +120,7 @@ async fn main() {
                 .replace(" ", "_")
                 .to_string(),
             melody_id,
-            None,
+            empty_melody.id.clone(),
             song.text,
             owner.id,
         )

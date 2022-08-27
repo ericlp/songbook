@@ -9,7 +9,7 @@ pub struct Song {
     pub author: String,
     pub unique_name: String,
     pub primary_melody: Uuid,
-    pub secondary_melody: Option<Uuid>,
+    pub secondary_melody: Uuid,
     pub text: String,
     pub deleted: bool,
     pub owned_by: Uuid,
@@ -50,6 +50,7 @@ pub struct SongBook {
     pub id: Uuid,
     pub name: String,
     pub unique_name: String,
+    pub author: String,
     pub deleted: bool,
     pub owned_by: Uuid,
 }

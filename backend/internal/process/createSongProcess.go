@@ -7,41 +7,51 @@ import (
 	"github.com/ericlp/songbook/backend/internal/db/tables"
 	"github.com/ericlp/songbook/backend/internal/models"
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"strings"
 )
 
 func CreateSong(
-	newSong *models.NewSongJson,
-) (*tables.Song, error) {
-	uniqueName, err := generateUniqueName(newSong.Title)
+	newSong *models.NewSongJson, priMelodyId, secMelodyId uuid.UUID) (*tables.Song, error) {
+	uniqueName, err := generateUniqueSongName(newSong.Title)
 	if err != nil {
 		return nil, err
 	}
 	song, err := commands.CreateSong(
 		newSong.Title,
 		uniqueName,
-		"",
+		priMelodyId,
+		secMelodyId,
 		newSong.OwnerId,
 	)
 	return song, err
 }
 
-func CreateNewRecipe(
-	recipeJson *models.NewRecipeJson,
+func CreateNewSong(
+	songJson *models.NewSongJson,
 ) (string, error) {
-	recipe, err := CreateRecipe(recipeJson)
+	priMelody, err := commands.CreateUnknownMelody()
+	if err != nil {
+		return "", err
+	}
+	secMelody, err := commands.CreateEmptyMelody()
 	if err != nil {
 		return "", err
 	}
 
-	return recipe.UniqueName, nil
+	song, err := CreateSong(songJson, priMelody.ID, secMelody.ID)
+	if err != nil {
+		return "", err
+	}
+
+	return song.UniqueName, nil
 }
 
-func generateUniqueName(name string) (string, error) {
+func generateUniqueSongName(name string) (string, error) {
 	lowerCase := strings.ToLower(name)
 	uniqueName := strings.ReplaceAll(lowerCase, " ", "_")
 
-	_, err := queries.GetRecipeByName(uniqueName)
+	_, err := queries.GetSongByName(uniqueName)
 	if err != nil {
 		if pgxscan.NotFound(err) {
 			return uniqueName, nil

@@ -72,18 +72,20 @@ pub async fn create_song_book(
     transaction: &mut Transaction<'_, DB>,
     name: String,
     unique_name: String,
+    author: String,
     owned_by: Uuid,
 ) -> sqlx::Result<SongBook> {
     sqlx::query_as!(
         SongBook,
         "
 INSERT 
-INTO song_book(name, unique_name, deleted, owned_by)
-VALUES        ($1,   $2,          false,   $3)
+INTO song_book(name, unique_name, author, deleted, owned_by)
+VALUES        ($1,   $2,          $3,     false,   $4)
 RETURNING *
         ",
         name,
         unique_name,
+        author,
         Some(owned_by),
     )
     .fetch_one(transaction)
@@ -114,7 +116,7 @@ pub async fn create_song(
     author: String,
     unique_name: String,
     primary_melody: Uuid,
-    secondary_melody: Option<Uuid>,
+    secondary_melody: Uuid,
     text: String,
     owned_by: Uuid,
 ) -> sqlx::Result<Song> {

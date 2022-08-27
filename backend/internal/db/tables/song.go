@@ -10,7 +10,7 @@ type Song struct {
 	Author          string
 	UniqueName      string
 	PrimaryMelody   uuid.UUID
-	SecondaryMelody *uuid.UUID
+	SecondaryMelody uuid.UUID
 	Text            string
 	Deleted         bool
 	OwnedBy         uuid.UUID

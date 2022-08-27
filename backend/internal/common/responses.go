@@ -25,19 +25,19 @@ func Error(err string) ErrorResponse {
 }
 
 const (
-	ResponseRecipeNameExist           = "recipe_name_exists"
-	ResponseFailedToCreateRecipe      = "failed_to_create_recipe"
-	ResponseFailedToEditRecipe        = "failed_to_edit_recipe"
-	ResponseRecipeNotFound            = "recipe_not_found"
+	ResponseSongNameExist             = "song_name_exists"
+	ResponseFailedToCreateSong        = "failed_to_create_song"
+	ResponseFailedToEditSong          = "failed_to_edit_song"
+	ResponseSongNotFound              = "song_not_found"
 	ResponseInvalidJson               = "invalid_json"
 	ResponseMissingFile               = "missing_file"
 	ResponseBadImage                  = "bad_image"
 	ResponseFileTypeNotSupported      = "filetype_not_supported"
 	ResponseFailedToSaveImage         = "failed_to_save_image"
-	ResponseFailedToRetrieveRecipes   = "failed_to_retrieve_recipes"
-	ResponseFailedToRetrieveRecipe    = "failed_to_retrieve_recipe"
-	ResponseMalformedRecipeId         = "malformed_recipe_id"
-	ResponseFailedToDeleteRecipe      = "failed_to_delete_recipe"
+	ResponseFailedToRetrieveSongs     = "failed_to_retrieve_songs"
+	ResponseFailedToRetrieveSong      = "failed_to_retrieve_song"
+	ResponseMalformedSongId           = "malformed_song_id"
+	ResponseFailedToDeleteSong        = "failed_to_delete_song"
 	ResponseFailedToDeleteSongBook    = "failed_to_delete_song_book"
 	ResponseFailedToAuthenticate      = "failed_to_authenticate"
 	ResponseInvalidUserId             = "invalid_user_id"
@@ -57,5 +57,4 @@ const (
 	ResponseTagNotFound               = "tag_not_found"
 	ResponseFailedToDeleteTag         = "failed_to_delete_tag"
 	ResponseFailedToEditTag           = "failed_to_edit_tag"
-	ResponseFailedToGetOwnersOfUser   = "failed_to_get_owners_of_user"
 )

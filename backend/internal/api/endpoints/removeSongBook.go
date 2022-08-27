@@ -11,7 +11,7 @@ import (
 func RemoveSongBook(c *gin.Context) {
 	songBook, err := validateSongBookId(c)
 	if err != nil {
-		log.Printf("Failed to validate recipe id: %v\n", err)
+		log.Printf("Failed to validate song id: %v\n", err)
 		return
 	}
 
@@ -29,5 +29,5 @@ func RemoveSongBook(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, common.Success("Recipe deleted"))
+	c.JSON(http.StatusOK, common.Success("Song deleted"))
 }

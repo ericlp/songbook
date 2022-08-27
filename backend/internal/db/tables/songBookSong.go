@@ -4,6 +4,6 @@ import "github.com/google/uuid"
 
 type SongBookSong struct {
 	SongBookId uuid.UUID
-	RecipeId   uuid.UUID
+	SongId     uuid.UUID
 	Number     int
 }

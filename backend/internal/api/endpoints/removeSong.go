@@ -8,29 +8,29 @@ import (
 	"net/http"
 )
 
-func RemoveRecipe(c *gin.Context) {
-	recipe, err := validateRecipeId(c)
+func RemoveSong(c *gin.Context) {
+	song, err := validateSongId(c)
 	if err != nil {
-		log.Printf("Failed to validate recipe id: %v\n", err)
+		log.Printf("Failed to validate song id: %v\n", err)
 		return
 	}
 
-	err = validateOwnerAuthorized(c, recipe.OwnedBy)
+	err = validateOwnerAuthorized(c, song.OwnedBy)
 	if err != nil {
 		log.Printf("Failed to authorize user: %v\n", err)
 		c.JSON(http.StatusForbidden, common.Error(common.ResponseIncorrectUser))
 		return
 	}
 
-	err = process.DeleteRecipe(recipe)
+	err = process.DeleteSong(song)
 	if err != nil {
-		log.Printf("Failed to delete recipe: %v\n", err)
+		log.Printf("Failed to delete song: %v\n", err)
 		c.JSON(
 			http.StatusInternalServerError,
-			common.Error(common.ResponseFailedToDeleteRecipe),
+			common.Error(common.ResponseFailedToDeleteSong),
 		)
 		return
 	}
 
-	c.JSON(http.StatusOK, common.Success("Recipe deleted"))
+	c.JSON(http.StatusOK, common.Success("Song deleted"))
 }

@@ -9,6 +9,6 @@ type TagJson struct {
 	Name        string    `json:"name"`
 	Description string    `json:"description"`
 	Color       ColorJson `json:"color"`
-	RecipeCount uint64    `json:"recipeCount"`
+	SongCount   uint64    `json:"songCount"`
 	Author      Owner     `json:"author"`
 }

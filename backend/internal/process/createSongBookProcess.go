@@ -6,7 +6,6 @@ import (
 	"github.com/ericlp/songbook/backend/internal/db/queries"
 	"github.com/ericlp/songbook/backend/internal/models"
 	"github.com/georgysavva/scany/pgxscan"
-	"github.com/google/uuid"
 	"strings"
 )
 
@@ -43,31 +42,4 @@ func generateUniqueBookName(name string) (string, error) {
 	}
 
 	return uniqueName, common.ErrNameTaken
-}
-
-func createSongBookSongs(
-	songBookId uuid.UUID,
-	songs []uuid.UUID,
-) error {
-	for _, song := range songs {
-		_, err := commands.CreateSongBookSong(songBookId, song)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func connectImagesToSongBook(
-	songBookId uuid.UUID,
-	imageIds []uuid.UUID,
-) error {
-	for _, imageId := range imageIds {
-		_, err := commands.CreateSongBookImage(songBookId, imageId)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
 }

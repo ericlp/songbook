@@ -49,11 +49,6 @@ func Init() {
 	commands.Init(db, &ctx)
 	queries.Init(db, &ctx)
 
-	oldImages, err := specialMigrations.PrepareImageNameUpgrade(db, &ctx)
-	if err != nil {
-		log.Fatalf("Failed to check for / prepare special migration: %v\n", err)
-	}
-
 	// Avoid caching issues
 	_, err = db.Exec(ctx, "DISCARD ALL")
 	if err != nil {
@@ -61,14 +56,6 @@ func Init() {
 	}
 
 	runMigrations(dbUrl)
-
-	if oldImages != nil {
-		log.Printf("Performing special migration")
-		err := specialMigrations.PerformSpecialMigration(db, &ctx, oldImages)
-		if err != nil {
-			log.Fatalf("Failed to perform special migration: %v\n", err)
-		}
-	}
 
 	log.Println("Initialized database connection")
 }

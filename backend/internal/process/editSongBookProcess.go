@@ -17,7 +17,7 @@ func EditSongBook(
 		return "", err
 	}
 
-	err = updateSongBookRecipes(oldSongBook.ID, updatedSongBook.Recipes)
+	err = updateSongBookSongs(oldSongBook.ID, updatedSongBook.Songs)
 	if err != nil {
 		return "", err
 	}
@@ -62,50 +62,20 @@ func updateSongBookGeneral(
 	return uniqueName, nil
 }
 
-func updateSongBookRecipes(bookId uuid.UUID, recipes []uuid.UUID) error {
-	oldRecipes, err := queries.GetRecipesForSongBook(bookId)
+func updateSongBookSongs(bookId uuid.UUID, songs []uuid.UUID) error {
+	err := commands.DeleteSongBookSongBySongBook(bookId)
 	if err != nil {
 		return err
 	}
 
-	for _, recipeId := range recipes {
-		if recipeWithIdIsInList(recipeId, oldRecipes) == false {
-			// Create the songBookRecipe
-			_, err := commands.CreateSongBookRecipe(bookId, recipeId)
-			if err != nil {
-				return err
-			}
-		}
-	}
-
-	// Delete any recipes that are no longer in the book
-	for _, oldRecipe := range oldRecipes {
-		removed := true
-		for _, rec := range recipes {
-			if oldRecipe.ID == rec {
-				removed = false
-			}
-		}
-
-		if removed {
-			err := commands.DeleteSongBookRecipe(bookId, oldRecipe.ID)
-			if err != nil {
-				return err
-			}
+	for songNum, songId := range songs {
+		_, err := commands.CreateSongBookSong(bookId, songId, songNum)
+		if err != nil {
+			return err
 		}
 	}
 
 	return nil
-}
-
-func recipeWithIdIsInList(id uuid.UUID, oldRecipes []*tables.Recipe) bool {
-	for _, oldRecipe := range oldRecipes {
-		if oldRecipe.ID == id {
-			return true
-		}
-	}
-
-	return false
 }
 
 func updateSongBookImages(bookId uuid.UUID, images []uuid.UUID) error {
@@ -144,6 +114,20 @@ func updateSongBookImages(bookId uuid.UUID, images []uuid.UUID) error {
 			if err != nil {
 				return err
 			}
+		}
+	}
+
+	return nil
+}
+
+func connectImagesToSongBook(
+	songBookId uuid.UUID,
+	imageIds []uuid.UUID,
+) error {
+	for _, imageId := range imageIds {
+		_, err := commands.CreateSongBookImage(songBookId, imageId)
+		if err != nil {
+			return err
 		}
 	}
 

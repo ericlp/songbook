@@ -8,16 +8,16 @@ import (
 	"net/http"
 )
 
-func Recipes(c *gin.Context) {
-	recipes, err := process.GetRecipes()
+func Songs(c *gin.Context) {
+	songs, err := process.GetSongs()
 	if err != nil {
-		log.Printf("Error: Failed to retrieve recipes due to %s\n", err)
+		log.Printf("Error: Failed to retrieve songs due to %s\n", err)
 		c.JSON(
 			http.StatusInternalServerError,
-			common.Error(common.ResponseFailedToRetrieveRecipes),
+			common.Error(common.ResponseFailedToRetrieveSongs),
 		)
 		return
 	}
 
-	c.JSON(http.StatusOK, common.Success(recipes))
+	c.JSON(http.StatusOK, common.Success(songs))
 }

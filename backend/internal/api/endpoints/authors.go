@@ -11,10 +11,10 @@ import (
 func Authors(c *gin.Context) {
 	songs, err := process.GetAllAuthors()
 	if err != nil {
-		log.Printf("Error: Failed to retrieve recipes due to %s\n", err)
+		log.Printf("Error: Failed to retrieve songs due to %s\n", err)
 		c.JSON(
 			http.StatusInternalServerError,
-			common.Error(common.ResponseFailedToRetrieveRecipes),
+			common.Error(common.ResponseFailedToRetrieveSongs),
 		)
 		return
 	}

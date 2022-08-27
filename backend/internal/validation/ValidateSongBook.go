@@ -9,8 +9,8 @@ import (
 )
 
 var (
-	ErrFailedToRetrieveImage  = errors.New("failed to retrieve the provided image id from the database")
-	ErrFailedToRetrieveRecipe = errors.New("failed to retrieve the provided recipe id from the database")
+	ErrFailedToRetrieveImage = errors.New("failed to retrieve the provided image id from the database")
+	ErrFailedToRetrieveSong  = errors.New("failed to retrieve the provided song id from the database")
 )
 
 func ValidateSongBook(songBook *models.EditSongBookJson) error {
@@ -19,7 +19,7 @@ func ValidateSongBook(songBook *models.EditSongBookJson) error {
 		return err
 	}
 
-	err = validateSongBookRecipes(songBook.Recipes)
+	err = validateSongBookSongs(songBook.Songs)
 	if err != nil {
 		return err
 	}
@@ -38,12 +38,12 @@ func validateSongBookImages(images []uuid.UUID) error {
 	return nil
 }
 
-func validateSongBookRecipes(recipes []uuid.UUID) error {
-	for _, recipeId := range recipes {
-		_, err := queries.GetRecipeById(recipeId)
+func validateSongBookSongs(songs []uuid.UUID) error {
+	for _, songId := range songs {
+		_, err := queries.GetSongById(songId)
 		if err != nil {
-			log.Printf("Failed to retrieve recipe: %v\n", err)
-			return ErrFailedToRetrieveRecipe
+			log.Printf("Failed to retrieve song: %v\n", err)
+			return ErrFailedToRetrieveSong
 		}
 	}
 	return nil

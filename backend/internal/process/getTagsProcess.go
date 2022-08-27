@@ -27,7 +27,7 @@ func GetTags() (*TagsJson, error) {
 			return nil, err
 		}
 
-		recipeCount, err := queries.CountRecipesWithTag(&tag.ID)
+		songCount, err := queries.CountSongsWithTag(&tag.ID)
 		if err != nil {
 			return nil, err
 		}
@@ -42,10 +42,10 @@ func GetTags() (*TagsJson, error) {
 					G: &tag.ColorGreen,
 					B: &tag.ColorBlue,
 				},
-				RecipeCount: recipeCount,
+				SongCount: songCount,
 				Author: models.Owner{
-					Id:     owner.ID,
-					Name:   owner.Name,
+					Id:   owner.ID,
+					Name: owner.Name,
 				},
 			},
 		)

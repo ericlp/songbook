@@ -13,9 +13,9 @@ WHERE unique_name=$1`
 func GetSongByName(uniqueName string) (*tables.Song, error) {
 	db := getDb()
 
-	var recipe tables.Song
-	err := pgxscan.Get(ctx, db, &recipe, getSongByNameQuery, uniqueName)
-	return &recipe, err
+	var song tables.Song
+	err := pgxscan.Get(ctx, db, &song, getSongByNameQuery, uniqueName)
+	return &song, err
 }
 
 var getSongByIdQuery = `SELECT id, title, author, unique_name, primary_melody, secondary_melody, text, deleted, owned_by
@@ -34,7 +34,7 @@ var getNonDeletedSongsQuery = `SELECT id, title, author, unique_name, primary_me
 FROM song
 WHERE deleted=false`
 
-func GetNonDeletedRecipes() ([]*tables.Song, error) {
+func GetNonDeletedSongs() ([]*tables.Song, error) {
 	db := getDb()
 
 	var songs []*tables.Song

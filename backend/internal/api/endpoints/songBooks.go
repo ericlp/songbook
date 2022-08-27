@@ -11,7 +11,7 @@ import (
 func SongBooks(c *gin.Context) {
 	songBooks, err := process.GetSongBooks()
 	if err != nil {
-		log.Printf("Failed to retrieve recipe books: %v\n", err)
+		log.Printf("Failed to retrieve songbooks: %v\n", err)
 		c.JSON(
 			http.StatusInternalServerError,
 			common.Error(common.ResponseFailedToRetrieveSongBooks),

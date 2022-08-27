@@ -14,85 +14,85 @@ import (
 	"net/http"
 )
 
-type EditRecipeJson struct {
+type EditSongJson struct {
 	UniqueName string `json:"uniqueName"`
 }
 
-func EditRecipe(c *gin.Context) {
-	recipeJson, err := validateEditRecipe(c)
+func EditSong(c *gin.Context) {
+	songJson, err := validateEditSong(c)
 	if err != nil {
-		log.Printf("Failed to validate edit recipe json: %v\n", err)
+		log.Printf("Failed to validate edit song json: %v\n", err)
 		c.JSON(http.StatusBadRequest, common.Error(common.ResponseInvalidJson))
 		return
 	}
 
-	oldRecipe, err := validateRecipeId(c)
+	oldSong, err := validateSongId(c)
 	if err != nil {
-		log.Printf("Failed to validate recipe id: %v", err)
+		log.Printf("Failed to validate song id: %v", err)
 		return
 	}
 
-	err = validateOwnerAuthorized(c, oldRecipe.OwnedBy)
+	err = validateOwnerAuthorized(c, oldSong.OwnedBy)
 	if err != nil {
-		log.Printf("User not authorized to edit recipe: %v\n", err)
+		log.Printf("User not authorized to edit song: %v\n", err)
 		c.JSON(http.StatusForbidden, common.Error(common.ResponseIncorrectUser))
 		return
 	}
 
-	uniqueName, err := process.EditRecipe(oldRecipe, recipeJson)
+	uniqueName, err := process.EditSong(oldSong, songJson)
 	if err != nil {
-		log.Printf("Failed to edit recipe: %v\n", err)
+		log.Printf("Failed to edit song: %v\n", err)
 		if errors.Is(err, common.ErrNameTaken) {
 			c.JSON(
 				http.StatusUnprocessableEntity,
-				common.Error(common.ResponseRecipeNameExist),
+				common.Error(common.ResponseSongNameExist),
 			)
 			return
 		}
 
 		c.JSON(
 			http.StatusInternalServerError,
-			common.Error(common.ResponseFailedToEditRecipe),
+			common.Error(common.ResponseFailedToEditSong),
 		)
 		return
 	}
 
 	c.JSON(
 		http.StatusOK, common.Success(
-			EditRecipeJson{
+			EditSongJson{
 				UniqueName: uniqueName,
 			},
 		),
 	)
 }
 
-func validateEditRecipe(c *gin.Context) (*models.EditRecipeJson, error) {
-	var recipe models.EditRecipeJson
-	err := c.ShouldBindJSON(&recipe)
+func validateEditSong(c *gin.Context) (*models.EditSongJson, error) {
+	var song models.EditSongJson
+	err := c.ShouldBindJSON(&song)
 	if err != nil {
 		return nil, err
 	}
 
-	err = validation.ValidateRecipe(&recipe)
-	return &recipe, err
+	err = validation.ValidateSong(&song)
+	return &song, err
 }
 
-func validateRecipeId(c *gin.Context) (*tables.Recipe, error) {
+func validateSongId(c *gin.Context) (*tables.Song, error) {
 	idStr := c.Param("id")
 	id, err := uuid.Parse(idStr)
 	if err != nil {
 		c.JSON(
 			http.StatusBadRequest,
-			common.Error(common.ResponseMalformedRecipeId),
+			common.Error(common.ResponseMalformedSongId),
 		)
 		return nil, err
 	}
 
-	recipe, err := queries.GetRecipeById(id)
+	song, err := queries.GetSongById(id)
 	if err != nil {
-		c.JSON(http.StatusNotFound, common.Error(common.ResponseRecipeNotFound))
+		c.JSON(http.StatusNotFound, common.Error(common.ResponseSongNotFound))
 		return nil, err
 	}
 
-	return recipe, nil
+	return song, nil
 }

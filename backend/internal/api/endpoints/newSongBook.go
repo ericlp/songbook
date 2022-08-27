@@ -17,7 +17,7 @@ type NewSongBookResponse struct {
 func NewSongBook(c *gin.Context) {
 	songBook, err := validateNewSongBook(c)
 	if err != nil {
-		log.Printf("Failed to validate new recipe book json: %v\n", err)
+		log.Printf("Failed to validate new songbook json: %v\n", err)
 		c.JSON(http.StatusBadRequest, common.Error(common.ResponseInvalidJson))
 		return
 	}

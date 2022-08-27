@@ -21,14 +21,14 @@ type EditSongBookResponseJson struct {
 func EditSongBook(c *gin.Context) {
 	songBook, err := validateEditSongBook(c)
 	if err != nil {
-		log.Printf("Failed to validate edit recipe book json %v\n", err)
+		log.Printf("Failed to validate edit songbook json %v\n", err)
 		c.JSON(http.StatusBadRequest, common.Error(common.ResponseInvalidJson))
 		return
 	}
 
 	oldSongBook, err := validateSongBookId(c)
 	if err != nil {
-		log.Printf("Failed to validate recipe id: %v\n", err)
+		log.Printf("Failed to validate song id: %v\n", err)
 		return
 	}
 

@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS song
     author         TEXT                          NOT NULL,
     unique_name    TEXT UNIQUE                   NOT NULL,
     primary_melody   uuid REFERENCES melody (id) NOT NULL,
-    secondary_melody uuid REFERENCES melody (id),
+    secondary_melody uuid REFERENCES melody (id) NOT NULL,
     text           TEXT                          NOT NULL,
     deleted        BOOLEAN                       NOT NULL,
     owned_by       uuid REFERENCES owner (id)    NOT NULL
@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS song_book
     id          uuid PRIMARY KEY NOT NULL DEFAULT uuid_generate_v4(),
     name        TEXT             NOT NULL UNIQUE,
     unique_name TEXT             NOT NULL UNIQUE,
+    author      TEXT             NOT NULL,
     deleted     BOOLEAN          NOT NULL,
     owned_by    uuid REFERENCES owner (id) NOT NULL
 );

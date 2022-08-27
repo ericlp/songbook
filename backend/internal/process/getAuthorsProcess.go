@@ -10,7 +10,7 @@ type AuthorsJson struct {
 }
 
 func GetAllAuthors() (*AuthorsJson, error) {
-	authors, err := queries.GetAllUsersWithRecipe()
+	authors, err := queries.GetAllUsersWithSong()
 	if err != nil {
 		return nil, err
 	}
@@ -18,8 +18,8 @@ func GetAllAuthors() (*AuthorsJson, error) {
 	authorsJson := make([]models.Owner, 0)
 	for _, author := range authors {
 		authorsJson = append(authorsJson, models.Owner{
-			Id:     author.ID,
-			Name:   author.Name,
+			Id:   author.ID,
+			Name: author.Name,
 		})
 	}
 

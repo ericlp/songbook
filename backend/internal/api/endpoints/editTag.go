@@ -28,7 +28,7 @@ func EditTag(c *gin.Context) {
 
 	err = validateOwnerAuthorized(c, oldTag.OwnedBy)
 	if err != nil {
-		log.Printf("User not authorized to edit recipe: %v\n")
+		log.Printf("User not authorized to edit song: %v\n")
 		c.JSON(http.StatusForbidden, common.Error(common.ResponseIncorrectUser))
 		return
 	}
