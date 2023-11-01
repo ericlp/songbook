@@ -31,6 +31,7 @@ setup-gamma-client:
 reset-setup-db:
 	make clean
 	make mock
+	make run-migrations
 	make setup-gamma-client
 
 db-dump:
